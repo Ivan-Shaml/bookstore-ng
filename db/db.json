@@ -1,0 +1,24 @@
+{
+  "users": [
+    {
+      "email": "admin@abv.com",
+      "password": "$2a$10$WF4gVl8JMXzKB5AfnKkVOeyuAwSZR5/arm8Lqd0iBVQ69ovUs/zNy",
+      "firstname": "admin",
+      "lastname": "adminov",
+      "id": 1
+    },
+    {
+      "email": "user@abv.com",
+      "password": "$2a$10$FiYoPY7FnyGIIY1RSbUkxeQioXkDSNxrvnoXpFFg62oW9lS0aORD6",
+      "firstname": "userov",
+      "lastname": "user",
+      "id": 2
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "asd"
+    }
+  ]
+}
