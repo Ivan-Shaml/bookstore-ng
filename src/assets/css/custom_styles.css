@@ -1,0 +1,20 @@
+.item {
+  position: relative;
+}
+
+.item img {
+  width: 100%;
+  height: auto;
+}
+
+.item .overlay {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 10px;
+  background: transparent;
+}
+
+.item .overlay i {
+  margin-right: 5px;
+}
