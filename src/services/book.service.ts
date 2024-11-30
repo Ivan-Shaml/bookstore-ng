@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {map, Observable} from 'rxjs';
 import {Book} from '../types/book';
 import {environment} from '../environments/environment.development';
 
@@ -49,6 +49,6 @@ export class BookService {
       params = '&_expand=category';
     }
 
-    return this.http.get<Book>(this.apiUrl + this.endpoint + '?_sort=rating&_order=desc&_page=1&_limit=1' + params);
+    return this.http.get<Book[]>(this.apiUrl + this.endpoint + '?_sort=rating&_order=desc&_page=1&_limit=1' + params).pipe(map(books => books[0]));
   }
 }

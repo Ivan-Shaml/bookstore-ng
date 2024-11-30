@@ -23,7 +23,7 @@ export class CategoryComponent implements OnInit {
 
   ngOnInit(): void {
     this.categoryService.getCategories(true).subscribe(c => this.categoriesList = c);
-    this.bookService.getMostRatedSingle(true).subscribe(c => this.topBook = c);
+    this.bookService.getMostRatedSingle(true).subscribe(b => this.topBook = b);
   }
 
 
