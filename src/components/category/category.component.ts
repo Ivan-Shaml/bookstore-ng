@@ -4,12 +4,14 @@ import {Book} from '../../types/book';
 import {NgIf} from '@angular/common';
 import {CategoryService} from '../../services/category.service';
 import {BookService} from '../../services/book.service';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-category',
   standalone: true,
   imports: [
-    NgIf
+    NgIf,
+    RouterLink
   ],
   templateUrl: './category.component.html',
   styleUrl: './category.component.css'

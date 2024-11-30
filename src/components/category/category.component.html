@@ -45,7 +45,8 @@
                       </div>
                       <div class="col-lg-12">
                         <div class="main-border-button">
-                          <a href="#">Разгледайте тази категория</a>
+                          <a [routerLink]="['/books']" [queryParams]="{categoryId: category.id}">Разгледайте тази
+                            категория</a>
                           <!--  th:href="@{'/product/filter?categoryId='+ ${category.id}}" -->
                         </div>
                       </div>

@@ -2,12 +2,14 @@ import {Component, OnInit} from '@angular/core';
 import {HomeBannerComponent} from '../home-banner/home-banner.component';
 import {Book} from '../../types/book';
 import {BookService} from '../../services/book.service';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-home-page',
   standalone: true,
   imports: [
-    HomeBannerComponent
+    HomeBannerComponent,
+    RouterLink
   ],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css'

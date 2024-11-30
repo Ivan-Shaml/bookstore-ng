@@ -24,6 +24,16 @@ export class BookService {
     return this.http.get<Book[]>(this.apiUrl + this.endpoint + params);
   }
 
+  getBooksByCategoryId(categoryId: number, includeCateg?: boolean): Observable<Book[]> {
+    let params: string = `?categoryId=${categoryId}`;
+
+    if (includeCateg) {
+      params += '&_expand=category';
+    }
+
+    return this.http.get<Book[]>(this.apiUrl + this.endpoint + params);
+  }
+
   getMostRatedBooks(includeCateg?: boolean): Observable<Book[]> {
 
     let params: string = '';

@@ -1,0 +1,27 @@
+<div class="most-popular">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="heading-section">
+        <h4 *ngIf="gridTitle" class="d-inline-block">{{ gridTitle }}</h4>
+        <h4 *ngIf="!gridTitle" class="d-inline-block"><em>Всички</em> продукти</h4>
+      </div>
+      <div class="row">
+        <div class="col-lg-3 col-sm-6" *ngFor="let book of resultList">
+          <div class="item">
+            <div class="thumb">
+
+              <img [src]="book.imageUrl" alt="">
+              <h4>{{ book.title }}</h4>
+              <br><span>{{ book.category?.name }}</span>
+              <ul class="d-inline-flex gap-sm-1 mt-0">
+                <li>
+                  <i>{{ book.rating || 0 }}</i> <i class="fa fa-star"></i>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
