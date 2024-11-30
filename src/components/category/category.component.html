@@ -11,7 +11,7 @@
                 <h1 style="text-align: center;">Топ категория: {{ topBook.category?.name }}</h1>
                 <div class="col-lg-8">
                   <div class="col-lg-4 mx-auto">
-                    <img src="{{topBook.imageUrl}}" alt=""
+                    <img src="{{topBook.imageUrl}}" alt="{{topBook.title}}"
                          style="border-radius: 23px; margin-left: 80%; margin-top: 10px; ">
                   </div>
                 </div>
@@ -20,7 +20,7 @@
           </div>
         </div>
         <!-- ***** Featured End ***** -->
-        <!-- ***** Category 1 ***** -->
+        <!-- ***** Category Start ***** -->
         @for (category of categoriesList; track category.id; let e = $even) {
           <div class="game-details" style="margin-top: 40px;">
             <div class="row">
@@ -45,7 +45,7 @@
                       </div>
                       <div class="col-lg-12">
                         <div class="main-border-button">
-                          <a>Разгледайте тази категория</a>
+                          <a href="#">Разгледайте тази категория</a>
                           <!--  th:href="@{'/product/filter?categoryId='+ ${category.id}}" -->
                         </div>
                       </div>
