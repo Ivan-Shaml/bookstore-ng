@@ -24,7 +24,7 @@ export class BookService {
     return this.http.get<Book[]>(this.apiUrl + this.endpoint + params);
   }
 
-  getMostRated(includeCateg?: boolean): Observable<Book[]> {
+  getMostRatedBooks(includeCateg?: boolean): Observable<Book[]> {
 
     let params: string = '';
     if (includeCateg) {
@@ -41,5 +41,14 @@ export class BookService {
     }
 
     return this.http.get<Book>(this.apiUrl + this.endpoint + `?title_like=${title}${params}`);
+  }
+
+  getMostRatedSingle(includeCateg?: boolean): Observable<Book> {
+    let params: string = '';
+    if (includeCateg) {
+      params = '&_expand=category';
+    }
+
+    return this.http.get<Book>(this.apiUrl + this.endpoint + '?_sort=rating&_order=desc&_page=1&_limit=1' + params);
   }
 }

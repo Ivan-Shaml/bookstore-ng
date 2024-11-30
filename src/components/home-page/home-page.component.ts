@@ -19,7 +19,7 @@ export class HomePageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.bookService.getMostRated(true).subscribe(res => this.mostDownloaded = res);
+    this.bookService.getMostRatedBooks(true).subscribe(res => this.mostDownloaded = res);
   }
 
 }
