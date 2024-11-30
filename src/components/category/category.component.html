@@ -1,0 +1,62 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="page-content">
+
+        <!-- ***** Featured Start ***** -->
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="feature-banner header-text">
+              <div class="row">
+                <h1 style="text-align: center;">Топ категория: {{ topCategory.name }}</h1>
+                <div class="col-lg-8">
+                  <div class="col-lg-4 mx-auto">
+                    <img src="{{topBook.imageUrl}}" alt=""
+                         style="border-radius: 23px; margin-left: 80%; margin-top: 10px; ">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- ***** Featured End ***** -->
+        <!-- ***** Category 1 ***** -->
+        @for (category of categoriesList; track category.id; let e = $even) {
+          <div class="game-details" style="margin-top: 40px;">
+            <div class="row">
+              <div class="flex-row">
+                <div class="col-lg-12">
+                  <div class="content">
+                    <div class="row">
+                      <div *ngIf="e" class="col-lg-8">
+                        <h2 style="color: #e75e8d;">{{ category.name + ':' }}</h2>
+                      </div>
+                      <div class="col-lg-4"
+                           style="{{e ? 'margin-bottom: 30px;' : 'margin-bottom: 30px; margin-left: 30px;'}}">
+                        <img src="{{category.books?.at(0)?.imageUrl}}" alt=""
+                             style="border-radius: 23px; margin-bottom: 30px; width: 60%; height: 100%;">
+                      </div>
+                      <div *ngIf="!e" class="col-lg-6">
+                        <h2 style="color: #e75e8d;">{{ category.name + ':' }}</h2>
+                      </div>
+
+                      <div class="col-lg-12">
+                        <p>{{ category.description }}</p>
+                      </div>
+                      <div class="col-lg-12">
+                        <div class="main-border-button">
+                          <a>Разгледайте тази категория</a>
+                          <!--  th:href="@{'/product/filter?categoryId='+ ${category.id}}" -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>

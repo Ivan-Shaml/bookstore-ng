@@ -1,6 +1,6 @@
 import {Category} from './category';
 
-export interface Product {
+export interface Book {
   id: string,
   title: string,
   author: string,
@@ -8,7 +8,7 @@ export interface Product {
   description: string,
   imageUrl: string,
   rating: number,
-  category: Category,
+  category?: Category,
 }
 
 

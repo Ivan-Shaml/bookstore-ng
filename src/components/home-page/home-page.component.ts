@@ -1,6 +1,7 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {HomeBannerComponent} from '../home-banner/home-banner.component';
-import {Product} from '../../types/product';
+import {Book} from '../../types/book';
+import {BookService} from '../../services/book.service';
 
 @Component({
   selector: 'app-home-page',
@@ -11,6 +12,14 @@ import {Product} from '../../types/product';
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css'
 })
-export class HomePageComponent {
-  mostDownloaded: Product[] = []//fixme
+export class HomePageComponent implements OnInit {
+  mostDownloaded: Book[] = []
+
+  constructor(private bookService: BookService) {
+  }
+
+  ngOnInit(): void {
+    this.bookService.getMostRated(true).subscribe(res => this.mostDownloaded = res);
+  }
+
 }

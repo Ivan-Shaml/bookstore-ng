@@ -20,7 +20,7 @@
                         <img src="{{topProd.imageUrl}}" alt="">
                       </div>
                       <h4>{{ topProd.title }}</h4>
-                      <br><span>{{ topProd.category.name }}</span>
+                      <br><span>{{ topProd.category?.name }}</span>
                       <div class="overlay">
                         <ul class="d-inline-flex gap-sm-1 mt-0">
                           <li><i>{{ topProd.rating }}</i> <i class="fa fa-star"></i></li>
@@ -28,15 +28,14 @@
                       </div>
                     </div>
                   </div>
-
-                  <div class="col-lg-12">
-                    <div class="main-button">
-                      <a href="#">Разгледай още</a>
-                    </div>
-                  </div>
                 } @empty {
-                  <h4>няма нищо</h4>
+                  <h4>Няма Книги</h4>
                 }
+                <div class="col-lg-12">
+                  <div class="main-button">
+                    <a href="#">Разгледай още</a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
