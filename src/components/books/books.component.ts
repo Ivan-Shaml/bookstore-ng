@@ -7,6 +7,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {BooksGridComponent} from './books-grid/books-grid.component';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-books',
@@ -19,6 +20,8 @@ export class BooksComponent implements OnInit {
 
   books: Book[] = [];
   categories: Category[] = [];
+  private readonly defaultCategory: Category = {id: 0, name: 'Всички', description: 'none'};
+  private categorySubscription!: Subscription;
 
   filterForm: FormGroup;
   gridTitle: string = 'Всички книги';
@@ -39,29 +42,45 @@ export class BooksComponent implements OnInit {
     this.bookService.getBooks(true).subscribe(books => this.books = books);
     this.categoryService.getCategories().subscribe(c => {
       this.categories = c;
-      this.categories.unshift({id: 0, name: 'Всички', description: 'none'})
+      this.categories.unshift(this.defaultCategory)
     });
 
-    this.filterForm.get('categoryId')?.valueChanges.subscribe(value => {
-      this.router.navigate([], {
-        relativeTo: this.route,
-        queryParams: value !== 0 ? {categoryId: value} : {categoryId: null},
-        queryParamsHandling: 'merge'
-      });
-    });
+    this.categorySubscription = this.subscribeForCategoryChanges();
 
     this.route.queryParams.subscribe(params => {
-      const categoryId = params['categoryId'];
+      const {categoryId, title} = params;
       if (categoryId) {
         this.filterForm.patchValue({categoryId: +categoryId});
         this.bookService.getBooksByCategoryId(categoryId, true).subscribe(books => {
           this.books = books;
           this.gridTitle = books[0]?.category?.name || 'Всички книги';
         });
+      } else if (title) {
+        this.bookService.getBooksByTitle(title, true).subscribe(books => {
+          this.books = books;
+          this.gridTitle = `Резултати от търсена за '${title}'`;
+          this.resetCategoryForm();
+        });
       } else {
         this.bookService.getBooks(true).subscribe(books => this.books = books);
         this.gridTitle = 'Всички книги';
       }
     });
+  }
+
+  subscribeForCategoryChanges(): Subscription {
+    return this.filterForm.get('categoryId')?.valueChanges.subscribe(value => {
+      this.router.navigate([], {
+        relativeTo: this.route,
+        queryParams: value !== 0 ? {categoryId: value} : {categoryId: null},
+        queryParamsHandling: 'replace'
+      });
+    }) as Subscription;
+  }
+
+  resetCategoryForm(): void {
+    this.categorySubscription.unsubscribe();
+    this.filterForm.reset({categoryId: 0, year: null});
+    this.categorySubscription = this.subscribeForCategoryChanges();
   }
 }

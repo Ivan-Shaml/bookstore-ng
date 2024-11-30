@@ -12,8 +12,10 @@
 
           <!-- ***** Search End ***** -->
           <div class="search-input">
-            <form id="search" method="get">
-              <input type="text" placeholder="Потърси книга" name="title">
+            <form [formGroup]="searchForm" (ngSubmit)="onSubmit()" id="search" method="get">
+              <input type="text"
+                     placeholder="Потърси книга"
+                     formControlName="title">
               <i class="fa fa-search"></i>
             </form>
           </div>

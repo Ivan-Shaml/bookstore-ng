@@ -61,4 +61,14 @@ export class BookService {
 
     return this.http.get<Book[]>(this.apiUrl + this.endpoint + '?_sort=rating&_order=desc&_page=1&_limit=1' + params).pipe(map(books => books[0]));
   }
+
+  getBooksByTitle(title: any, includeCateg: boolean): Observable<Book[]> {
+    let params: string = `?title_like=${title}`;
+
+    if (includeCateg) {
+      params += '&_expand=category';
+    }
+
+    return this.http.get<Book[]>(this.apiUrl + this.endpoint + params);
+  }
 }
