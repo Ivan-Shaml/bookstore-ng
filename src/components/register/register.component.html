@@ -1,0 +1,84 @@
+<div class="page-content">
+  <div class="container">
+    <div class="row col-md-8 offset-md-2">
+      <div class="card" style="background-color: #1f2122;">
+        <!--        <div *ngIf="${param.success}">-->
+        <!--          <div class="alert alert-info">Профилът Ви e успешно регистриран!-->
+        <!--          </div>-->
+        <!--        </div>-->
+
+
+        <div class="card-header" style="background-color: #1f2122;">
+          <h2 class="text-center" style="color: #e75e8d;">Регистрация</h2>
+        </div>
+
+        <div class="card-body" style="background-color: #252a2b;">
+          <form class="form-horizontal" #form="ngForm" (ngSubmit)="register(form)" role="form">
+            <div class="form-group mb-3">
+              <label for="name" class="form-label" style="color: #e75e8d;">Име*</label>
+              <input type="text" id="name" name="name" class="form-control" placeholder="Въведете име" required ngModel
+                     #name="ngModel">
+              <div *ngIf="name.invalid && (name.dirty || name.touched)" class="text-danger">
+                <div *ngIf="name.errors?.['required']">Името е задължително.</div>
+              </div>
+            </div>
+
+            <div class="form-group mb-3">
+              <label for="email" class="form-label" style="color: #e75e8d;">Имейл*</label>
+              <input type="email" id="email" name="email" class="form-control" email placeholder="Въведете имейл адрес"
+                     required ngModel #email="ngModel">
+              <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger">
+                <div *ngIf="email.errors?.['required']">Имейл адресът е задължителен.</div>
+                <div *ngIf="email.errors?.['email']">Невалиден имейл адрес.</div>
+              </div>
+            </div>
+
+            <div class="form-group mb-3">
+              <label for="phone" class="form-label" style="color: #e75e8d;">Телефонен номер</label>
+              <input type="tel" id="phone" name="phone" class="form-control" placeholder="Въведете телефонен номер"
+                     ngModel #phone="ngModel" pattern="^[0-9]{10}$">
+              <div *ngIf="phone.invalid && (phone.dirty || phone.touched)" class="text-danger">
+                <div *ngIf="phone.errors?.['pattern']">Невалиден телефонен номер.</div>
+              </div>
+            </div>
+
+            <div class="form-group mb-3"><label for="password" class="form-label"
+                                                style="color: #e75e8d;">Парола*</label> <input type="password"
+                                                                                               id="password"
+                                                                                               name="password"
+                                                                                               class="form-control"
+                                                                                               placeholder="Въведете парола"
+                                                                                               required minlength="6"
+                                                                                               ngModel
+                                                                                               #password="ngModel">
+              <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-danger">
+                <div *ngIf="password.errors?.['required']">Паролата е задължителна.</div>
+                <div *ngIf="password.errors?.['minlength']">Паролата трябва да бъде поне 6 символа.</div>
+              </div>
+            </div>
+
+            <div class="form-group mb-3"><label for="repeatPassword" class="form-label" style="color: #e75e8d;">Повторете
+              Парола*</label> <input type="password" id="repeatPassword" name="repeatPassword" class="form-control"
+                                     placeholder="Повторете парола" required ngModel #repeatPassword="ngModel"
+                                     [class]="(repeatPassword.touched && !matchPasswords(password.value, repeatPassword.value)) ? 'input-error' : ''">
+              <div *ngIf="repeatPassword.touched && !matchPasswords(password.value, repeatPassword.value)"
+                   class="text-danger">
+                <div>Паролите не съвпадат.</div>
+              </div>
+            </div>
+
+            <div class="form-group mb-3">
+              <button type="submit" class="btn btn-primary" style="background-color: #e75e8d; color: #1f2122;"
+                      [disabled]="form.invalid || !matchPasswords(password.value, repeatPassword.value)">
+                Регистрация
+              </button>
+              <span style="color: #e75e8d;" class="float-end">Имате вече профил? <a
+                routerLink="/login">Вход тук</a></span>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

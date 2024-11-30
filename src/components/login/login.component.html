@@ -1,0 +1,63 @@
+<div class="page-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <!--        <div *ngIf="${param.error}">-->
+                <!--          <div class="alert alert-danger">Невалидно потребителско име или парола.</div>-->
+                <!--        </div>-->
+
+                <!--        <div *ngIf="${param.logout}">-->
+                <!--          <div class="alert alert-success">Успешно излизане от профила.</div>-->
+                <!--        </div>-->
+
+                <div class="card">
+                    <div class="card-header" style="background-color: #1f2122;">
+                        <h3 class="text-center" style="color: #e75e8d;">Вход</h3>
+                    </div>
+
+                    <div class="card-body" style="background-color: #252a2b;">
+                        <form class="form-horizontal" #form="ngForm" (ngSubmit)="login(form)" role="form">
+                            <div class="mb-3">
+                                <label for="email" class="control-label" style="color: #e75e8d;">Имейл адрес
+                                    *</label>
+                                <input type="email" id="email" name="email" class="form-control"
+                                       placeholder="Въведете email"
+                                       required ngModel #email="ngModel">
+                                <div *ngIf="email.invalid && (email.dirty || email.touched)"
+                                     class="text-danger">
+                                    <div *ngIf="email.errors?.['required']">Имейл адрес е задължителен.</div>
+                                    <div *ngIf="email.errors?.['email']">Невалиден имейл адрес.</div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="password" class="control-label" style="color: #e75e8d;">Парола *</label>
+                                <input type="password" id="password" name="password" class="form-control"
+                                       placeholder="Въведете парола"
+                                       required minlength="6" ngModel #password="ngModel">
+                                <div *ngIf="password.invalid && (password.dirty || password.touched)"
+                                     class="text-danger">
+                                    <div *ngIf="password?.errors?.['required']">Паролата е задължителна.</div>
+                                    <div *ngIf="password?.errors?.['minlength']">Паролата трябва да бъде поне 6 символа.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <button type="submit" class="btn btn-primary"
+                                        style="background-color: #e75e8d; color: #1f2122;"
+                                        [disabled]="form.invalid">
+                                    Вход
+                                </button>
+                                <span style="color: #e75e8d;" class="float-end"> Нямате профил?
+                                <a routerLink="/register"> Регистрирай се тук!</a>
+                                </span>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
