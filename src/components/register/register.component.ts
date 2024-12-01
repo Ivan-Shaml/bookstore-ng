@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {FormsModule, NgForm} from '@angular/forms';
 import {AuthService} from '../../services/auth.service';
 import {NgIf} from '@angular/common';
-import {RouterLink} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -16,18 +16,18 @@ import {RouterLink} from '@angular/router';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
-  constructor(private authService: AuthService) {
+  constructor(private readonly authService: AuthService, private readonly router: Router) {
   }
+
+  emailAlreadyExists: boolean = false;
 
   register(form: NgForm): void {
     if (form.valid) {
       const {name, email, phone, password} = form.value;
       this.authService.register({name, email, phone, password}).subscribe(response => {
-        console.log('Registration successful', response);
-        // Handle successful registration, e.g., navigate to a different page
+        this.router.navigate(['/home']);
       }, error => {
-        console.error('Registration failed', error);
-        // Handle registration error, e.g., show error message
+        this.emailAlreadyExists = true;
       });
     }
   }

@@ -38,14 +38,21 @@ export class AuthService implements OnDestroy {
   }
 
   register(body: UserForRegistration): Observable<User> {
-    return this.http.post<UserAuthResponse>(this.apiUrl + this.registerEndpoint, body)
+    return this.http.post<UserAuthResponse>(this.apiUrl + this.registerEndpoint, this.addDefaultRoleToRequest(body))
       .pipe(tap((user) => {
           this.user$$.next(user.user);
           this.setToken(user.accessToken)
         }),
         map((user) => {
-          return user.user
+          return user.user;
         }));
+  }
+
+  /**
+   * Няма как да го направя през json server-a, (или поне лесно и бързо) и ще си измия ръцете така...
+   */
+  private addDefaultRoleToRequest(user: UserForRegistration): any {
+    return {email: user.email, name: user.name, phone: user.phone, password: user.password, role: 'user'};
   }
 
   ngOnDestroy(): void {

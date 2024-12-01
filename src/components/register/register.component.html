@@ -1,12 +1,12 @@
 <div class="page-content">
   <div class="container">
     <div class="row col-md-8 offset-md-2">
-      <div class="card" style="background-color: #1f2122;">
-        <!--        <div *ngIf="${param.success}">-->
-        <!--          <div class="alert alert-info">Профилът Ви e успешно регистриран!-->
-        <!--          </div>-->
-        <!--        </div>-->
 
+      @if (emailAlreadyExists) {
+        <div class="alert alert-danger">Имейлът вече съществува</div>
+      }
+
+      <div class="card" style="background-color: #1f2122;">
 
         <div class="card-header" style="background-color: #1f2122;">
           <h2 class="text-center" style="color: #e75e8d;">Регистрация</h2>
