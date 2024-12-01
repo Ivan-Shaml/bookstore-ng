@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {Router, RouterLink, RouterLinkActive} from '@angular/router';
 import {FormBuilder, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {AuthService} from '../../../services/auth.service';
+import {NgOptimizedImage} from '@angular/common';
 
 @Component({
   selector: 'app-header',
@@ -9,7 +10,8 @@ import {AuthService} from '../../../services/auth.service';
   imports: [
     RouterLink,
     RouterLinkActive,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgOptimizedImage
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'

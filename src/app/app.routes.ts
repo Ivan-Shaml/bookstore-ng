@@ -4,6 +4,9 @@ import {CategoryComponent} from '../components/category/category.component';
 import {BooksComponent} from '../components/books/books.component';
 import {LoginComponent} from '../components/login/login.component';
 import {RegisterComponent} from '../components/register/register.component';
+import {ProfilePageComponent} from '../components/profile-page/profile-page.component';
+import {AuthGuard} from '../guards/auth.guard';
+import {PageNotFoundComponent} from '../components/common/page-not-found/page-not-found.component';
 
 export const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -14,5 +17,10 @@ export const routes: Routes = [
 
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
+  {path: 'profile', component: ProfilePageComponent, canActivate: [AuthGuard]},
 
+
+  // Error handling
+  {path: '404', component: PageNotFoundComponent},
+  {path: '**', redirectTo: '/404'},
 ];

@@ -4,6 +4,7 @@ import {BehaviorSubject, map, Observable, Subscription, tap} from 'rxjs';
 import {environment} from '../environments/environment.development';
 import {User, UserAuthResponse, UserForLogin, UserForRegistration} from '../types/user';
 import {CookieService} from 'ngx-cookie-service';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class AuthService implements OnDestroy {
   private readonly loginEndpoint = '/login';
   private readonly registerEndpoint = '/register';
 
-  constructor(private http: HttpClient, private cookieService: CookieService) {
+  constructor(private http: HttpClient, private cookieService: CookieService, private router: Router) {
     this.userSubscription = this.user$.subscribe((user) => {
       this.user = user;
     });
@@ -59,8 +60,9 @@ export class AuthService implements OnDestroy {
     return this.cookieService.get(this.token_name);
   }
 
-  logout(): void {
+  logOut(): void {
     this.cookieService.delete(this.token_name, '/');
+    this.router.navigate(['/login']);
   }
 
   get isLogged(): boolean {
@@ -69,5 +71,9 @@ export class AuthService implements OnDestroy {
 
   get isAdmin(): boolean {
     return this.user?.role == 'admin';
+  }
+
+  get username(): string {
+    return this.user?.name || '';
   }
 }

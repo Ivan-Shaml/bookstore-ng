@@ -5,8 +5,8 @@
         <nav class="main-nav">
 
           <!-- ***** Logo Start ***** -->
-          <a href="#" class="logo">
-            <!-- <img alt=""> -->
+          <a routerLink="/home" class="logo">
+            <img ngSrc="/assets/images/logo.png" alt="logo" height="51" width="192">
           </a>
           <!-- ***** Logo End ***** -->
 
@@ -27,7 +27,7 @@
             <li><a routerLink="/category" routerLinkActive="active">Категории</a></li>
             <li><a routerLink="/books" routerLinkActive="active">Книги</a></li>
             @if (isLoggedIn()) {
-              <li><a href="#">Профил
+              <li><a routerLink="/profile">Профил
                 <img src="/assets/images/profile-header.jpg" alt="profilePicture"/>
               </a></li>
             } @else {
