@@ -16,6 +16,7 @@ export class BooksGridComponent {
   @Input() gridTitle!: string;
   @Input() resultList!: Book[];
   @Output() delete = new EventEmitter<number>()
+  @Output() download = new EventEmitter<number>()
 
   constructor(private readonly authService: AuthService) {
   }
@@ -24,11 +25,22 @@ export class BooksGridComponent {
     return this.authService.isAdmin;
   }
 
+  isLoggedIn() {
+    return this.authService.isLogged;
+  }
+
 
   deleteBook(event: Event, id: number) {
     event.preventDefault();
     event.stopPropagation();
 
     this.delete.emit(id);
+  }
+
+  downloadBook(event: MouseEvent, id: number) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    this.download.emit(id);
   }
 }

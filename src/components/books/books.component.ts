@@ -8,6 +8,8 @@ import {FormBuilder, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {BooksGridComponent} from './books-grid/books-grid.component';
 import {Subscription} from 'rxjs';
+import {BookOwnershipService} from '../../services/book-ownership.service';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-books',
@@ -33,7 +35,9 @@ export class BooksComponent implements OnInit {
               private categoryService: CategoryService,
               private router: Router,
               private fb: FormBuilder,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private bookOwnershipService: BookOwnershipService,
+              private authService: AuthService) {
     this.filterForm = this.fb.group({categoryId: [0]});
   }
 
@@ -96,5 +100,17 @@ export class BooksComponent implements OnInit {
         this.isBookDeleted = false;
         this.isBookDeletionError = true;
       })
+  }
+
+  onDownload($event: number): void {
+    const userId: number = this.authService.user?.id as number;
+
+    this.bookOwnershipService.download({bookId: $event, userId}).subscribe(next => {
+        this.router.navigate(['/profile'], {queryParams: {success: true}, fragment: 'ownedProducts'});
+      },
+      error => {
+        console.log(error);
+        this.router.navigate(['/profile'], {queryParams: {alreadyOwned: true}, fragment: 'ownedProducts'});
+      });
   }
 }

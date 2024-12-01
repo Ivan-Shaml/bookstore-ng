@@ -35,7 +35,8 @@
             <div class="alert alert-danger">Грешка при изтриване на книгата.</div>
           </div>
         }
-        <app-books-grid [gridTitle]="gridTitle" [resultList]="books" (delete)="onDelete($event)"></app-books-grid>
+        <app-books-grid [gridTitle]="gridTitle" [resultList]="books" (delete)="onDelete($event)"
+                        (download)="onDownload($event)"></app-books-grid>
       </div>
     </div>
   </div>

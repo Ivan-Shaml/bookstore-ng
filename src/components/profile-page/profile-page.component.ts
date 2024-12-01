@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Book} from '../../types/book';
-import {BookService} from "../../services/book.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {AuthService} from "../../services/auth.service";
+import {BookOwnershipService} from '../../services/book-ownership.service';
 
 @Component({
   selector: 'app-profile-page',
@@ -13,15 +13,25 @@ import {AuthService} from "../../services/auth.service";
 })
 export class ProfilePageComponent implements OnInit {
   ratedProductsCount: number = 0;
-  ownedProductsCount: number = 0;
   ownedBooks: Book[] = [];
+  isAlreadyOwned: boolean = false;
+  isSuccess: boolean = false;
 
-  constructor(private bookService: BookService, private router: Router, private readonly authService: AuthService) {
+
+  constructor(private readonly bookOwnership: BookOwnershipService,
+              private readonly router: Router,
+              private readonly authService: AuthService,
+              private readonly route: ActivatedRoute) {
   }
 
 
   ngOnInit(): void {
-
+    const userId = this.authService.user?.id as number;
+    this.bookOwnership.getOwnedBooks(userId).subscribe(result => this.ownedBooks = result);
+    this.route.queryParams.subscribe(params => {
+      this.isSuccess = params['success'] === 'true';
+      this.isAlreadyOwned = params['alreadyOwned'] === 'true';
+    });
   }
 
   getUserName() {
@@ -37,5 +47,11 @@ export class ProfilePageComponent implements OnInit {
 
   goToDetails(id: number) {
     this.router.navigate(['book', 'details', id]);
+  }
+
+  protected readonly length = length;
+
+  getRatingsCount(): number {
+    return this.ownedBooks.filter(book => book.rating > 0)?.length || 0;
   }
 }
