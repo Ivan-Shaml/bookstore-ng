@@ -1,0 +1,110 @@
+<div class="page-content">
+  <div class="container">
+    <div class="row col-md-8 offset-md-2">
+      <div class="card" style="background-color: #1f2122;">
+        <div class="card-header" style="background-color: #1f2122;">
+          <h2 class="text-center"
+              style="color: #e75e8d;">{{ isEditMode ? 'Редакция на продукт' : 'Създаване на продукт' }}</h2>
+        </div>
+        @if (successfulOperation) {
+          <div>
+            <div class="alert alert-success">Продуктът е запазен.</div>
+          </div>
+        }
+
+        <div class="card-body" style="background-color: #252a2b;">
+          <form #form="ngForm" (ngSubmit)="saveBook(form)" novalidate>
+            <input type="hidden" name="id" [(ngModel)]="book.id">
+
+            <div class="form-group mb-3">
+              <label class="form-label" style="color: #e75e8d;" for="title">Заглавие</label>
+              <input class="form-control" id="title" name="title" placeholder="Въведете заглавие"
+                     [(ngModel)]="book.title" required>
+              @if (form.submitted && !form.controls['title']?.valid) {
+                <div class="text-danger">
+                  Заглавието е задължително.
+                </div>
+              }
+            </div>
+
+            <div class="form-group mb-3">
+              <label class="form-label" style="color: #e75e8d;" for="author">Автор</label>
+              <input class="form-control" id="author" name="author" placeholder="Въведете автор"
+                     [(ngModel)]="book.author" required>
+              @if (form.submitted && !form.controls['author']?.valid) {
+                <div class="text-danger">
+                  Авторът е задължителен.
+                </div>
+              }
+            </div>
+
+            <div class="form-group mb-3">
+              <label class="form-label" style="color: #e75e8d;" for="imageUrl">Линк на снимка</label>
+              <input class="form-control" id="imageUrl" name="imageUrl" placeholder="Въведете Линк на снимката"
+                     [(ngModel)]="book.imageUrl" required>
+              @if (form.submitted && !form.controls['imageUrl']?.valid) {
+                <div class="text-danger">
+                  Линкът на снимката е задължителен.
+                </div>
+              }
+            </div>
+
+            <div class="form-group mb-3">
+              <label class="form-label" style="color: #e75e8d;" for="pages">Брой страници</label>
+              <input class="form-control" id="pages" name="numberOfPages" placeholder="Въведете брой страници"
+                     [(ngModel)]="book.numberOfPages" type="number" required>
+              @if (form.submitted && !form.controls['numberOfPages']?.valid) {
+                <div class="text-danger">
+                  Брой страници е задължителен.
+                </div>
+              }
+            </div>
+
+            <div class="form-group mb-3">
+              <label class="form-label" style="color: #e75e8d;" for="yearOfPublishing">Година на издаване</label>
+              <input class="form-control" id="yearOfPublishing" name="yearOfPublishing"
+                     placeholder="Въведете година на издаване" [(ngModel)]="book.yearOfPublishing" type="number"
+                     required>
+              @if (form.submitted && !form.controls['yearOfPublishing']?.valid) {
+                <div class="text-danger">
+                  Годината на издаване е задължителна.
+                </div>
+              }
+            </div>
+
+            <div class="form-group mb-3">
+              <label class="form-label" style="color: #e75e8d;" for="description">Описание</label>
+              <textarea class="form-control" id="description" name="description" placeholder="Описание"
+                        [(ngModel)]="book.description" cols="6" rows="12" required></textarea>
+              @if (form.submitted && !form.controls['description']?.valid) {
+                <div class="text-danger">
+                  Описанието е задължително.
+                </div>
+              }
+            </div>
+
+            <div class="form-group mb-3">
+              <label class="form-label" style="color: #e75e8d;" for="category">Категория</label>
+              <select class="form-control" id="category" name="categoryId" [(ngModel)]="book.categoryId" required>
+                @for (category of categories; track category.id) {
+                  <option [value]="category.id">{{ category.name }}</option>
+                }
+              </select>
+              @if (form.submitted && !form.controls['categoryId']?.valid) {
+                <div class="text-danger">
+                  Категорията е задължителна.
+                </div>
+              }
+            </div>
+
+            <div class="form-group mb-3">
+              <button class="btn btn-primary" type="submit" style="background-color: #e75e8d; color: #1f2122;">
+                <i class="fa fa-save"></i> Запази
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

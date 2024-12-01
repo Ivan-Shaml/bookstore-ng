@@ -6,7 +6,7 @@
         @if (loginFailed) {
           <div class="alert alert-danger">Невалидно потребителско име или парола.</div>
         }
-        
+
         <div class="card">
           <div class="card-header" style="background-color: #1f2122;">
             <h3 class="text-center" style="color: #e75e8d;">Вход</h3>
@@ -18,7 +18,7 @@
                 <label for="email" class="control-label" style="color: #e75e8d;">Имейл адрес
                   *</label>
                 <input type="email" id="email" name="email" class="form-control"
-                       placeholder="Въведете email"
+                       placeholder="Въведете email" email
                        required ngModel #email="ngModel">
                 <div *ngIf="email.invalid && (email.dirty || email.touched)"
                      class="text-danger">

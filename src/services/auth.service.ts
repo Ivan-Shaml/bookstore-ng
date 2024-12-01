@@ -3,8 +3,10 @@ import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, map, Observable, Subscription, tap} from 'rxjs';
 import {environment} from '../environments/environment.development';
 import {User, UserAuthResponse, UserForLogin, UserForRegistration} from '../types/user';
-import {CookieService} from 'ngx-cookie-service';
 import {Router} from '@angular/router';
+import {TOKEN_NAME} from '../common/constants';
+import {jwtDecode} from 'jwt-decode';
+import {JwtUserToken} from '../types/jwt';
 
 @Injectable({
   providedIn: 'root'
@@ -16,14 +18,14 @@ export class AuthService implements OnDestroy {
   userSubscription: Subscription | null = null;
 
   apiUrl: string = environment.apiUrl;
-  private readonly token_name = 'token';
   private readonly loginEndpoint = '/login';
   private readonly registerEndpoint = '/register';
 
-  constructor(private http: HttpClient, private cookieService: CookieService, private router: Router) {
+  constructor(private http: HttpClient, private router: Router) {
     this.userSubscription = this.user$.subscribe((user) => {
       this.user = user;
     });
+    this.checkToken();
   }
 
   login(body: UserForLogin): Observable<User> {
@@ -60,15 +62,16 @@ export class AuthService implements OnDestroy {
   }
 
   private setToken(token: string): void {
-    this.cookieService.set(this.token_name, token, {path: '/'});
+    localStorage.setItem(TOKEN_NAME, token);
   }
 
   getToken(): string | null {
-    return this.cookieService.get(this.token_name);
+    return localStorage.getItem(TOKEN_NAME)
   }
 
   logOut(): void {
-    this.cookieService.delete(this.token_name, '/');
+    localStorage.removeItem(TOKEN_NAME);
+    this.user$$.next(null);
     this.router.navigate(['/login']);
   }
 
@@ -82,5 +85,36 @@ export class AuthService implements OnDestroy {
 
   get username(): string {
     return this.user?.name || '';
+  }
+
+  checkToken(): void {
+    const token: string | null = localStorage.getItem(TOKEN_NAME);
+    if (!token) {
+      return;
+    }
+
+    const decodedToken: JwtUserToken | null = this.decodeToken(token);
+    if (!decodedToken) {
+      return;
+    }
+
+    const currentTime = Math.floor(Date.now() / 1000);
+    const isValid = decodedToken.exp && decodedToken.exp > currentTime;
+    const sub = decodedToken.sub;
+
+    if (isValid && !this.isLogged && sub) {
+      this.http.get<User>(this.apiUrl + `/users/${sub}`).subscribe(user => {
+        this.user$$.next(user);
+      })
+    }
+
+  }
+
+  private decodeToken(token: string): JwtUserToken | null {
+    try {
+      return jwtDecode<JwtUserToken>(token);
+    } catch (Error) {
+      return null;
+    }
   }
 }

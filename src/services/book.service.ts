@@ -71,4 +71,25 @@ export class BookService {
 
     return this.http.get<Book[]>(this.apiUrl + this.endpoint + params);
   }
+
+  updateBook(book: Book): Observable<Book> {
+    return this.http.put<Book>(this.apiUrl + this.endpoint + `/${book.id}`, book);
+  }
+
+  createBook(book: Book): Observable<Book> {
+    return this.http.post<Book>(this.apiUrl + this.endpoint, book);
+  }
+
+  deleteBook(id: number): Observable<void> {
+    return this.http.delete<void>(this.apiUrl + this.endpoint + `/${id}`);
+  }
+
+  getBookById(id: number, includeCateg?: boolean): Observable<Book> {
+    let params: string = '';
+    if (includeCateg) {
+      params = '&_expand=category';
+    }
+
+    return this.http.get<Book>(this.apiUrl + this.endpoint + `/${id}${params}`);
+  }
 }

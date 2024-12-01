@@ -25,6 +25,8 @@ export class BooksComponent implements OnInit {
 
   filterForm: FormGroup;
   gridTitle: string = 'Всички книги';
+  isBookDeleted: boolean = false;
+  isBookDeletionError: boolean = false;
 
 
   constructor(private bookService: BookService,
@@ -39,7 +41,6 @@ export class BooksComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.bookService.getBooks(true).subscribe(books => this.books = books);
     this.categoryService.getCategories().subscribe(c => {
       this.categories = c;
       this.categories.unshift(this.defaultCategory)
@@ -82,5 +83,18 @@ export class BooksComponent implements OnInit {
     this.categorySubscription.unsubscribe();
     this.filterForm.reset({categoryId: 0, year: null});
     this.categorySubscription = this.subscribeForCategoryChanges();
+  }
+
+
+  onDelete(id: number): void {
+    this.bookService.deleteBook(id).subscribe(res => {
+        this.isBookDeleted = true;
+        this.isBookDeletionError = false;
+        this.ngOnInit();
+      },
+      err => {
+        this.isBookDeleted = false;
+        this.isBookDeletionError = true;
+      })
   }
 }

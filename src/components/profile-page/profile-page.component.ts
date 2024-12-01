@@ -5,34 +5,37 @@ import {Router} from "@angular/router";
 import {AuthService} from "../../services/auth.service";
 
 @Component({
-    selector: 'app-profile-page',
-    standalone: true,
-    imports: [],
-    templateUrl: './profile-page.component.html',
-    styleUrl: './profile-page.component.css'
+  selector: 'app-profile-page',
+  standalone: true,
+  imports: [],
+  templateUrl: './profile-page.component.html',
+  styleUrl: './profile-page.component.css'
 })
 export class ProfilePageComponent implements OnInit {
-    ratedProductsCount: number = 0;
-    ownedProductsCount: number = 0;
-    ownedBooks: Book[] = [];
+  ratedProductsCount: number = 0;
+  ownedProductsCount: number = 0;
+  ownedBooks: Book[] = [];
 
-    constructor(private bookService: BookService, private router: Router, private readonly authService: AuthService) {
-    }
+  constructor(private bookService: BookService, private router: Router, private readonly authService: AuthService) {
+  }
 
 
-    ngOnInit(): void {
+  ngOnInit(): void {
 
-    }
+  }
 
-    getUserName() {
-        return this.authService.username;
-    }
+  getUserName() {
+    return this.authService.username;
+  }
 
-    logOut() {
-        this.authService.logOut();
-    }
+  logOut(event: Event): void {
+    event.preventDefault();
+    event.stopPropagation();
 
-    goToDetails(id: string) {
-        this.router.navigate(['book', 'details', id]);
-    }
+    this.authService.logOut();
+  }
+
+  goToDetails(id: number) {
+    this.router.navigate(['book', 'details', id]);
+  }
 }

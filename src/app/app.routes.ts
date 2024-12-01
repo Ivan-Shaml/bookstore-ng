@@ -7,13 +7,24 @@ import {RegisterComponent} from '../components/register/register.component';
 import {ProfilePageComponent} from '../components/profile-page/profile-page.component';
 import {AuthGuard} from '../guards/auth.guard';
 import {PageNotFoundComponent} from '../components/common/page-not-found/page-not-found.component';
+import {BookFormComponent} from '../components/books/book-form/book-form.component';
+import {AdminGuard} from '../guards/admin.guard';
 
 export const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
   {path: 'home', component: HomePageComponent},
 
   {path: 'category', component: CategoryComponent},
-  {path: 'books', component: BooksComponent},
+  {
+    path: 'books', children: [
+      {path: '', component: BooksComponent},
+      {
+        path: ':bookId',
+        component: BookFormComponent,
+        canActivate: [AuthGuard, AdminGuard],
+      },
+    ],
+  },
 
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},

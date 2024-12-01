@@ -13,17 +13,29 @@
               <div class="form-group">
                 <label for="category" style="color:#e75e8d;">Категория:</label>
                 <select id="category" formControlName="categoryId" class="form-control" style="color: #1f2122;">
-                  <option *ngFor="let category of categories" [value]="category.id">
-                    {{ category.id == null ? 'Всички' : category.name }}
-                  </option>
+                  @for (category of categories; track category.id) {
+                    <option [value]="category.id">
+                      {{ category.id == null ? 'Всички' : category.name }}
+                    </option>
+                  }
                 </select>
               </div>
             </form>
 
           </div>
         </div>
+        @if (isBookDeleted) {
+          <div>
+            <div class="alert alert-success">Книгата е изтрита.</div>
+          </div>
+        }
 
-        <app-books-grid [gridTitle]="gridTitle" [resultList]="books"></app-books-grid>
+        @if (isBookDeletionError) {
+          <div>
+            <div class="alert alert-danger">Грешка при изтриване на книгата.</div>
+          </div>
+        }
+        <app-books-grid [gridTitle]="gridTitle" [resultList]="books" (delete)="onDelete($event)"></app-books-grid>
       </div>
     </div>
   </div>
