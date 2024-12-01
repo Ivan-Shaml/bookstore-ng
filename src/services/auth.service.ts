@@ -1,26 +1,73 @@
-import {Injectable} from '@angular/core';
+import {Injectable, OnDestroy} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {BehaviorSubject, map, Observable, Subscription, tap} from 'rxjs';
 import {environment} from '../environments/environment.development';
+import {User, UserAuthResponse, UserForLogin, UserForRegistration} from '../types/user';
+import {CookieService} from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthService implements OnDestroy {
+  private user$$ = new BehaviorSubject<User | null>(null);
+  private user$ = this.user$$.asObservable();
+  user: User | null = null;
+  userSubscription: Subscription | null = null;
+
   apiUrl: string = environment.apiUrl;
-  private loginEndpoint = '/login';
-  private registerEndpoint = '/register';
+  private readonly token_name = 'token';
+  private readonly loginEndpoint = '/login';
+  private readonly registerEndpoint = '/register';
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private cookieService: CookieService) {
+    this.userSubscription = this.user$.subscribe((user) => {
+      this.user = user;
+    });
   }
 
-  //fixme
-  login(email: string, password: string): Observable<any> {
-    return this.http.post<any>(this.apiUrl + this.loginEndpoint, {email, password});
+  login(body: UserForLogin): Observable<User> {
+    return this.http.post<UserAuthResponse>(this.apiUrl + this.loginEndpoint, body)
+      .pipe(tap((user) => this.user$$.next(user.user))).pipe(tap((user) => {
+          this.user$$.next(user.user);
+          this.setToken(user.accessToken)
+        }),
+        map((user) => {
+          return user.user
+        }));
   }
 
-  //fixme
-  register(param: { password: any; phone: any; name: any; email: any }): Observable<any> {
-    return this.http.post<any>(this.apiUrl + this.registerEndpoint, param);
+  register(body: UserForRegistration): Observable<User> {
+    return this.http.post<UserAuthResponse>(this.apiUrl + this.registerEndpoint, body)
+      .pipe(tap((user) => {
+          this.user$$.next(user.user);
+          this.setToken(user.accessToken)
+        }),
+        map((user) => {
+          return user.user
+        }));
+  }
+
+  ngOnDestroy(): void {
+    this.userSubscription?.unsubscribe();
+  }
+
+  private setToken(token: string): void {
+    this.cookieService.set(this.token_name, token, {path: '/'});
+  }
+
+  getToken(): string | null {
+    return this.cookieService.get(this.token_name);
+  }
+
+  logout(): void {
+    this.cookieService.delete(this.token_name, '/');
+  }
+
+  get isLogged(): boolean {
+    return !!this.user;
+  }
+
+  get isAdmin(): boolean {
+    return this.user?.role == 'admin';
   }
 }

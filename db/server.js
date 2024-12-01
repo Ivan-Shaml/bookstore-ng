@@ -7,6 +7,11 @@ const middlewares = jsonServer.defaults();
 server.db = router.db;
 
 server.use(middlewares);
+// Use '/api' prefix
+server.use(jsonServer.rewriter({
+  '/api/*': '/$1'
+}))
+
 server.use(auth);
 server.use(router);
 server.listen(3000, () => {

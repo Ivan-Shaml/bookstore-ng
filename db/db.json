@@ -1,18 +1,20 @@
 {
   "users": [
     {
-      "email": "admin@abv.com",
+      "email": "admin@abv.bg",
       "password": "$2a$10$WF4gVl8JMXzKB5AfnKkVOeyuAwSZR5/arm8Lqd0iBVQ69ovUs/zNy",
       "name": "admin",
       "phone": "0889224122",
-      "id": 1
+      "id": 1,
+      "role": "admin"
     },
     {
-      "email": "user@abv.com",
+      "email": "user@abv.bg",
       "password": "$2a$10$FiYoPY7FnyGIIY1RSbUkxeQioXkDSNxrvnoXpFFg62oW9lS0aORD6",
       "name": "userov",
       "phone": "0889275338",
-      "id": 2
+      "id": 2,
+      "role": "user"
     }
   ],
   "books": [

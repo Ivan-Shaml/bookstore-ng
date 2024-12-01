@@ -26,12 +26,15 @@
             <li><a routerLink="/home" routerLinkActive="active">Начало</a></li>
             <li><a routerLink="/category" routerLinkActive="active">Категории</a></li>
             <li><a routerLink="/books" routerLinkActive="active">Книги</a></li>
-            <li><a routerLink="/login">Вход
-              <!-- <img alt=""/> -->
-            </a></li>
-            <li><a>Профил
-              <!-- <img alt=""/> -->
-            </a></li>
+            @if (isLoggedIn()) {
+              <li><a href="#">Профил
+                <img src="/assets/images/profile-header.jpg" alt="profilePicture"/>
+              </a></li>
+            } @else {
+              <li><a routerLink="/login">Вход
+                <img src="/assets/images/profile-header.jpg" alt="profilePicture"/>
+              </a></li>
+            }
           </ul>
           <a class='menu-trigger'>
             <span>Меню</span>

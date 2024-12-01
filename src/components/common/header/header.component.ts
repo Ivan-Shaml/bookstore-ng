@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {Router, RouterLink, RouterLinkActive} from '@angular/router';
 import {FormBuilder, FormGroup, ReactiveFormsModule} from '@angular/forms';
+import {AuthService} from '../../../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -16,7 +17,7 @@ import {FormBuilder, FormGroup, ReactiveFormsModule} from '@angular/forms';
 export class HeaderComponent {
   searchForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(private fb: FormBuilder, private router: Router, private readonly authService: AuthService,) {
     this.searchForm = this.fb.group({title: ['']});
   }
 
@@ -25,5 +26,9 @@ export class HeaderComponent {
     if (title) {
       this.router.navigate(['/books'], {queryParams: {title}});
     }
+  }
+
+  isLoggedIn(): boolean {
+    return this.authService.isLogged;
   }
 }
