@@ -1,0 +1,30 @@
+.searchInput {
+  background-color: #27292a;
+  height: 46px;
+  border-radius: 23px 0 0 23px;
+  border: none;
+  color: #666;
+  font-size: 14px;
+  padding: 0px 15px 0px 45px;
+}
+
+.searchButton {
+  height: 46px;
+  border-radius: 0 23px 23px 0;
+  border: none;
+  font-size: 14px;
+  padding: 0px 15px 0px 15px;
+}
+
+.searchResultMsg p {
+  color: #ec6090;
+  font-size: 22px;
+  text-decoration: none;
+  margin-bottom: 30px;
+}
+
+.searchResultMsg p em {
+  color: #fff;
+  font-style: normal;
+  text-decoration: underline;
+}

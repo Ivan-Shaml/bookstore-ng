@@ -103,7 +103,7 @@ export class BooksComponent implements OnInit {
   }
 
   onDownload($event: number): void {
-    const userId: number = this.authService.user?.id as number;
+    const userId: number = this.authService.userid as number;
 
     this.bookOwnershipService.download({bookId: $event, userId}).subscribe(next => {
         this.router.navigate(['/profile'], {queryParams: {success: true}, fragment: 'ownedProducts'});

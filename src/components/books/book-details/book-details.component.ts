@@ -26,7 +26,7 @@ export class BookDetailsComponent implements OnInit {
     const id = this.activatedRoute.snapshot.params['bookId'];
     if (id) {
       const bookId = +id;
-      const userId = this.authService.user?.id as number;
+      const userId = this.authService.userid as number;
 
       this.bookOwnershipService.getOwnedBook(userId, bookId).subscribe(next => {
         this.book = next;
@@ -39,7 +39,7 @@ export class BookDetailsComponent implements OnInit {
     event.preventDefault();
     event.stopPropagation();
 
-    const userId = this.authService.user?.id as number;
+    const userId = this.authService.userid as number;
     const bookId = this.book.id;
     this.bookOwnershipService.deleteOwnership(bookId, userId).subscribe(next => {
       this.router.navigate(['/profile'], {queryParams: {deletedOwnership: true}, fragment: 'ownedProducts'});

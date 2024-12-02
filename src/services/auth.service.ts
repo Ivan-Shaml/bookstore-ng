@@ -87,6 +87,10 @@ export class AuthService implements OnDestroy {
     return this.user?.name || '';
   }
 
+  get userid(): number | null {
+    return this.user?.id || null;
+  }
+
   checkToken(): void {
     const token: string | null = localStorage.getItem(TOKEN_NAME);
     if (!token) {

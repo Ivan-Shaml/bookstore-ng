@@ -1,13 +1,17 @@
 import {Component, OnInit} from '@angular/core';
 import {Book} from '../../types/book';
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {AuthService} from "../../services/auth.service";
 import {BookOwnershipService} from '../../services/book-ownership.service';
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-profile-page',
   standalone: true,
-  imports: [],
+  imports: [
+    FormsModule,
+    RouterLink
+  ],
   templateUrl: './profile-page.component.html',
   styleUrl: './profile-page.component.css'
 })
@@ -16,6 +20,7 @@ export class ProfilePageComponent implements OnInit {
   isAlreadyOwned: boolean = false;
   isSuccess: boolean = false;
   isDeletedOwnership: boolean = false;
+  searchQuery: string = '';
 
 
   constructor(private readonly bookOwnership: BookOwnershipService,
@@ -26,7 +31,7 @@ export class ProfilePageComponent implements OnInit {
 
 
   ngOnInit(): void {
-    const userId = this.authService.user?.id as number;
+    const userId = this.authService.userid as number;
     this.bookOwnership.getOwnedBooks(userId).subscribe(result => this.ownedBooks = result);
     this.route.queryParams.subscribe(params => {
       this.isSuccess = params['success'] === 'true';
@@ -55,5 +60,12 @@ export class ProfilePageComponent implements OnInit {
 
   getRatingsCount(): number {
     return this.ownedBooks.filter(book => book.rating > 0)?.length || 0;
+  }
+
+  searchBooks() {
+    this.bookOwnership.getOwnedBooks(this.authService.userid as number)
+      .subscribe(result => {
+        this.ownedBooks = result.filter(book => book.title.toLowerCase().includes(this.searchQuery?.toLowerCase()));
+      });
   }
 }
