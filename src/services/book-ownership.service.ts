@@ -39,8 +39,25 @@ export class BookOwnershipService {
     ));
   }
 
-  public deleteOwnerShip(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl + this.endpoint}/${id}`);
+  public deleteOwnership(userId: number, bookId: number): Observable<void> {
+    return this.getOwnership(userId, bookId).pipe(switchMap(ownership => {
+      if (ownership && ownership.id) {
+        return this.http.delete<void>(`${this.apiUrl}${this.endpoint}/${ownership.id}`);
+      } else {
+        return throwError(() => new Error('Ownership not found.'));
+      }
+    }), catchError(error => {
+      console.error('Error:', error.message);
+      return throwError(() => error);
+    }));
+  }
+
+  private getOwnership(userId: number, bookId: number): Observable<any> {
+    return this.http.get<ReadOwnership[]>(`${this.apiUrl + this.endpoint}?userId=${userId}&bookId=${bookId}`)
+      .pipe(map(dto => dto.length > 0 ? dto[0] : null), catchError(error => {
+        console.error('Error fetching ownership:', error);
+        return throwError(() => error);
+      }));
   }
 
   public getOwnedBooks(userId: number): Observable<Book[]> {

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, RouterLink} from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {Book} from '../../../types/book';
 import {BookOwnershipService} from '../../../services/book-ownership.service';
 import {AuthService} from '../../../services/auth.service';
@@ -16,9 +16,10 @@ import {AuthService} from '../../../services/auth.service';
 export class BookDetailsComponent implements OnInit {
   book!: Book;
 
-  constructor(private activatedRoute: ActivatedRoute,
-              private bookOwnershipService: BookOwnershipService,
-              private authService: AuthService) {
+  constructor(private readonly activatedRoute: ActivatedRoute,
+              private readonly bookOwnershipService: BookOwnershipService,
+              private readonly authService: AuthService,
+              private readonly router: Router) {
   }
 
   ngOnInit(): void {
@@ -34,4 +35,14 @@ export class BookDetailsComponent implements OnInit {
   }
 
 
+  onDelete(event: Event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const userId = this.authService.user?.id as number;
+    const bookId = this.book.id;
+    this.bookOwnershipService.deleteOwnership(bookId, userId).subscribe(next => {
+      this.router.navigate(['/profile'], {queryParams: {deletedOwnership: true}, fragment: 'ownedProducts'});
+    });
+  }
 }

@@ -7,15 +7,17 @@
         <div class="row">
           <div class="col-lg-12">
             <div class="feature-banner header-text">
-              <div *ngIf="topBook" class="row">
-                <h1 style="text-align: center;">Топ категория: {{ topBook.category?.name }}</h1>
-                <div class="col-lg-8">
-                  <div class="col-lg-4 mx-auto">
-                    <img src="{{topBook.imageUrl}}" alt="{{topBook.title}}"
-                         style="border-radius: 23px; margin-left: 80%; margin-top: 10px; ">
+              @if (topBook) {
+                <div class="row">
+                  <h1 style="text-align: center;">Топ категория: {{ topBook.category?.name }}</h1>
+                  <div class="col-lg-8">
+                    <div class="col-lg-4 mx-auto">
+                      <img src="{{topBook.imageUrl}}" alt="{{topBook.title}}"
+                           style="border-radius: 23px; margin-left: 80%; margin-top: 10px; ">
+                    </div>
                   </div>
                 </div>
-              </div>
+              }
             </div>
           </div>
         </div>

@@ -12,10 +12,10 @@ import {BookOwnershipService} from '../../services/book-ownership.service';
   styleUrl: './profile-page.component.css'
 })
 export class ProfilePageComponent implements OnInit {
-  ratedProductsCount: number = 0;
   ownedBooks: Book[] = [];
   isAlreadyOwned: boolean = false;
   isSuccess: boolean = false;
+  isDeletedOwnership: boolean = false;
 
 
   constructor(private readonly bookOwnership: BookOwnershipService,
@@ -31,6 +31,7 @@ export class ProfilePageComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.isSuccess = params['success'] === 'true';
       this.isAlreadyOwned = params['alreadyOwned'] === 'true';
+      this.isDeletedOwnership = params['deletedOwnership'] === 'true';
     });
   }
 
