@@ -10,12 +10,22 @@ import {PageNotFoundComponent} from '../components/common/page-not-found/page-no
 import {BookFormComponent} from '../components/books/book-form/book-form.component';
 import {AdminGuard} from '../guards/admin.guard';
 import {BookDetailsComponent} from '../components/books/book-details/book-details.component';
+import {CategoryFormComponent} from '../components/category/category-form/category-form.component';
 
 export const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
   {path: 'home', component: HomePageComponent},
 
-  {path: 'category', component: CategoryComponent},
+  {
+    path: 'category', children: [
+      {path: '', component: CategoryComponent},
+      {
+        path: ':categoryId',
+        component: CategoryFormComponent,
+        canActivate: [AuthGuard, AdminGuard],
+      }
+    ]
+  },
   {
     path: 'books', children: [
       {path: '', component: BooksComponent},

@@ -1,0 +1,46 @@
+<div class="page-content">
+  <div class="container">
+    <div class="row col-md-8 offset-md-2">
+      <div class="card" style="background-color: #1f2122;">
+        <div class="card-header" style="background-color: #1f2122;">
+          <h2 class="text-center"
+              style="color: #e75e8d;"> {{ categoryId ? 'Редакция на категория' : 'Създаване на категория' }}</h2>
+        </div>
+        @if (successfullyAdded) {
+          <div>
+            <div class="alert alert-success">Категорията е запазена.</div>
+          </div>
+        }
+        <div class="card-body" style="background-color: #252a2b;">
+          <form [formGroup]="categoryForm" (ngSubmit)="saveCategory()">
+            <input type="hidden" formControlName="id">
+            <div class="form-group mb-3">
+              <label class="form-label" style="color: #e75e8d;" for="title">Име на категория</label>
+              <input class="form-control" id="title" formControlName="name" placeholder="Въведете име" type="text"/>
+              @if (categoryForm.controls['name'].invalid && !categoryForm.controls['name'].untouched) {
+                <p class="text-danger">
+                  Името е задължително.
+                </p>
+              }
+            </div>
+            <div class="form-group mb-3">
+              <label class="form-label" style="color: #e75e8d;" for="description">Описание</label>
+              <textarea class="form-control" id="description" formControlName="description" placeholder="Описание"
+                        cols="6" rows="12"></textarea>
+              @if (categoryForm.controls['description'].invalid && !categoryForm.controls['description'].untouched) {
+                <p class="text-danger">
+                  Описанието е задължително.
+                </p>
+              }
+            </div>
+            <div class="form-group mb-3">
+              <button class="btn btn-primary" type="submit" style="background-color: #e75e8d; color: #1f2122;">
+                <i class="fa fa-save"></i> Запази
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

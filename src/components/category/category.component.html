@@ -20,35 +20,62 @@
           </div>
         </div>
         <!-- ***** Featured End ***** -->
+        @if (deletedSuccessfully) {
+          <div>
+            <div class="alert alert-success">Категорията е изтрита.</div>
+          </div>
+        }
+
+        @if (errorCategoryDeletion) {
+          <div>
+            <div class="alert alert-danger">Грешка при изтриване на категорията.</div>
+          </div>
+        }
+
+
+        @if (isAdmin()) {
+          <div>
+            <a class="bnt btn-success text-success float-end fw-bolder" role="button" [routerLink]="['/category','']"
+               [href]="null"><i class="fa fa-plus"></i> Създай</a>
+          </div>
+        }
+
         <!-- ***** Category Start ***** -->
         @for (category of categoriesList; track category.id; let e = $even) {
           <div class="game-details" style="margin-top: 40px;">
             <div class="row">
-              <div class="flex-row">
-                <div class="col-lg-12">
-                  <div class="content">
-                    <div class="row">
-                      <div *ngIf="e" class="col-lg-8">
-                        <h2 style="color: #e75e8d;">{{ category.name + ':' }}</h2>
-                      </div>
-                      <div class="col-lg-4"
-                           style="{{e ? 'margin-bottom: 30px;' : 'margin-bottom: 30px; margin-left: 30px;'}}">
-                        <img src="{{getImageUrl(category)}}" alt=""
-                             style="border-radius: 23px; margin-bottom: 30px; width: 60%; height: 100%;">
-                      </div>
-                      <div *ngIf="!e" class="col-lg-6">
-                        <h2 style="color: #e75e8d;">{{ category.name + ':' }}</h2>
-                      </div>
+              @if (isAdmin()) {
+                <div class="flex-row">
+                  <a class="text-danger mb-2 fw-bold float-start d-inline-block"
+                     (click)="onDeleteCategory(category.id ,$event)" [href]="null"><i class="fa fa-trash"></i>
+                    Изтрий</a>
+                  <a class="text-warning mb-2 fw-bold float-end d-inline-block"
+                     [routerLink]="['/category', category.id]"><i class="fa fa-edit"></i>
+                    Редактирай</a>
+                </div>
+              }
+              <div class="col-lg-12">
+                <div class="content">
+                  <div class="row">
+                    <div *ngIf="e" class="col-lg-8">
+                      <h2 style="color: #e75e8d;">{{ category.name + ':' }}</h2>
+                    </div>
+                    <div class="col-lg-4"
+                         style="{{e ? 'margin-bottom: 30px;' : 'margin-bottom: 30px; margin-left: 30px;'}}">
+                      <img src="{{getImageUrl(category)}}" alt=""
+                           style="border-radius: 23px; margin-bottom: 30px; width: 60%; height: 100%;">
+                    </div>
+                    <div *ngIf="!e" class="col-lg-6">
+                      <h2 style="color: #e75e8d;">{{ category.name + ':' }}</h2>
+                    </div>
 
-                      <div class="col-lg-12">
-                        <p>{{ category.description }}</p>
-                      </div>
-                      <div class="col-lg-12">
-                        <div class="main-border-button">
-                          <a [routerLink]="['/books']" [queryParams]="{categoryId: category.id}">Разгледайте тази
-                            категория</a>
-                          <!--  th:href="@{'/product/filter?categoryId='+ ${category.id}}" -->
-                        </div>
+                    <div class="col-lg-12">
+                      <p>{{ category.description }}</p>
+                    </div>
+                    <div class="col-lg-12">
+                      <div class="main-border-button">
+                        <a [routerLink]="['/books']" [queryParams]="{categoryId: category.id}">Разгледайте тази
+                          категория</a>
                       </div>
                     </div>
                   </div>

@@ -5,6 +5,7 @@ import {NgIf} from '@angular/common';
 import {CategoryService} from '../../services/category.service';
 import {BookService} from '../../services/book.service';
 import {RouterLink} from '@angular/router';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-category',
@@ -19,8 +20,12 @@ import {RouterLink} from '@angular/router';
 export class CategoryComponent implements OnInit {
   topBook!: Book;
   categoriesList: Category[] = [];
+  deletedSuccessfully: boolean = false;
+  errorCategoryDeletion: boolean = false;
 
-  constructor(private categoryService: CategoryService, private bookService: BookService) {
+  constructor(private readonly categoryService: CategoryService,
+              private readonly bookService: BookService,
+              private readonly authService: AuthService) {
   }
 
   ngOnInit(): void {
@@ -36,5 +41,23 @@ export class CategoryComponent implements OnInit {
       return books[0].imageUrl;
     }
     return '';
+  }
+
+  isAdmin(): boolean {
+    return this.authService.isAdmin;
+  }
+
+  onDeleteCategory(id: number, event: Event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    this.categoryService.deleteCategory(id).subscribe(() => {
+      this.deletedSuccessfully = true;
+      this.errorCategoryDeletion = false;
+      this.ngOnInit();
+    }, err => {
+      this.deletedSuccessfully = false;
+      this.errorCategoryDeletion = true;
+    });
   }
 }
