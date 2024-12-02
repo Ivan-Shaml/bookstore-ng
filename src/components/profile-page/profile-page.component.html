@@ -66,7 +66,7 @@
                         <span>{{ book.yearOfPublishing }}</span>
                         <ul class="d-inline-flex gap-sm-1 mt-0">
                           <li><i>{{ book.rating }}</i> <i class="fa fa-star"></i></li>
-                          <li><a (click)="goToDetails(book.id)" class="info-button">
+                          <li><a (click)="goToDetails(book.id, $event)" class="info-button" [href]="null">
                             <i class="fa fa-info-circle"></i> Детайли</a></li>
                         </ul>
                       </div>

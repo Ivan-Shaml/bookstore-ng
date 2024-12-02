@@ -1,0 +1,88 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="page-content">
+        <!-- ***** Featured Start ***** -->
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="feature-banner header-text">
+              <div class="row">
+                <div class="col-lg-8">
+                  <div class="col-lg-4 mx-auto">
+                    <img [src]="book.imageUrl" alt=""
+                         style="border-radius: 23px; margin-left: 80%; margin-top: 10px; "/>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- ***** Featured End ***** -->
+
+        <!-- ***** Details Start ***** -->
+        <div class="game-details">
+          <div class="row">
+            <div class="col-lg-12">
+              <h2>{{ book.title }}</h2>
+            </div>
+
+            <div class="col-lg-12">
+              <div class="content">
+                <div class="row">
+
+                  <div class="col-lg-12">
+                    <div class="left-info" style="display: flex; justify-content: space-between;">
+                      <h3 style="margin-top: 20px;">Детайли:</h3>
+
+                      <div class="right" style="text-align: left;">
+
+                        <h4 id="detail1" style="display: inline; margin-right: 5px;">Автор:</h4>
+                        <span id="author" style="display: inline;">{{ book.author }}</span>
+                        <br/>
+                        <h4 id="detail2" style="display: inline; margin-right: 5px;">Категория:</h4>
+                        <span id="category" style="display: inline;">{{ book.category?.name }}</span>
+                        <br/>
+                        <h4 id="detail3" style="display: inline; margin-right: 5px;">Страници:</h4>
+                        <span id="pages" style="display: inline;">{{ book.numberOfPages }}</span>
+                        <br/>
+                        <h4 id="detail4" style="display: inline; margin-right: 5px;">Година на издаване:</h4>
+                        <span id="year" style="display: inline;">{{ book.yearOfPublishing }}</span>
+                        <br/>
+                        <h4 id="detail5" style="display: inline; margin-right: 5px;">Средна оценка:</h4>
+                        <span id="avgRating" style="display: inline;">{{ book.rating || 0 }}</span>
+                        <i class="fa fa-star" style="display: inline; color: #f6cb1a;"></i>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-12">
+                    <p style="font-size: 16px; color: #fff;">{{ book.description }}</p>
+                  </div>
+
+                  <div class="col-lg-6">
+                    <div class="main-border-button">
+                      <a href="#">Започни да четеш</a>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="main-border-button">
+                      <a routerLink="/profile">Връщане към профил</a>
+                    </div>
+                  </div>
+                  <div class="col-lg-12">
+                    <div class="main-border-button">
+                      <a href="#"><i class="fa fa-trash" style="margin-right: 10px;"></i>Изтрии книгата!</a>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- ***** Details End ***** -->
+
+      </div>
+    </div>
+  </div>
+</div>

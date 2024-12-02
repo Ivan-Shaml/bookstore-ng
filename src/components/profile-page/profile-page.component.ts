@@ -45,11 +45,12 @@ export class ProfilePageComponent implements OnInit {
     this.authService.logOut();
   }
 
-  goToDetails(id: number) {
-    this.router.navigate(['book', 'details', id]);
-  }
+  goToDetails(id: number, event: Event): void {
+    event.preventDefault();
+    event.stopPropagation();
 
-  protected readonly length = length;
+    this.router.navigate(['/books', id, 'details']);
+  }
 
   getRatingsCount(): number {
     return this.ownedBooks.filter(book => book.rating > 0)?.length || 0;

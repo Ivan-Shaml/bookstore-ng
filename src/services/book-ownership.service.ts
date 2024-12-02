@@ -48,4 +48,21 @@ export class BookOwnershipService {
       map(dto => dto.map(d => d.book))
     );
   }
+
+  public getOwnedBook(userId: number, bookId: number): Observable<Book> {
+    return this.checkIfBookExists(userId, bookId).pipe(switchMap(exists => {
+      if (exists) {
+        return this.http.get<Book>(`${this.apiUrl}/books/${bookId}?_expand=category`);
+      } else {
+        return throwError(() => new Error('Book not owned by user.'));
+      }
+    }), catchError(error => {
+      console.error('Error:', error.message);
+      return throwError(() => error);
+    }));
+  }
+
+  private checkIfBookExists(userId: number, bookId: number): Observable<boolean> {
+    return this.http.get<ReadOwnership[]>(`${this.apiUrl + this.endpoint}?userId=${userId}&bookId=${bookId}`).pipe(map(dto => dto && dto.length > 0));
+  }
 }
