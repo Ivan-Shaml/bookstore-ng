@@ -64,10 +64,6 @@ export class AuthService implements OnDestroy {
     localStorage.setItem(TOKEN_NAME, token);
   }
 
-  getToken(): string | null {
-    return localStorage.getItem(TOKEN_NAME)
-  }
-
   logOut(): void {
     localStorage.removeItem(TOKEN_NAME);
     this.user$$.next(null);

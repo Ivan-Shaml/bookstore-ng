@@ -4,7 +4,7 @@ import {environment} from '../environments/environment.development';
 import {catchError, map, Observable, switchMap, throwError} from 'rxjs';
 import CreateOwnershipDto from '../types/create-ownership.dto';
 import {Book} from '../types/book';
-import ReadOwnership from '../types/read-ownership.dto';
+import ReadOwnershipDto from '../types/read-ownership.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +34,7 @@ export class BookOwnershipService {
   }
 
   private checkIfAlreadyOwned(dto: CreateOwnershipDto): Observable<boolean> {
-    return this.http.get<ReadOwnership[]>(`${this.apiUrl + this.endpoint}?userId=${dto.userId}&bookId=${dto.bookId}`).pipe(map(
+    return this.http.get<ReadOwnershipDto[]>(`${this.apiUrl + this.endpoint}?userId=${dto.userId}&bookId=${dto.bookId}`).pipe(map(
       response => response && response.length > 0
     ));
   }
@@ -53,7 +53,7 @@ export class BookOwnershipService {
   }
 
   private getOwnership(userId: number, bookId: number): Observable<any> {
-    return this.http.get<ReadOwnership[]>(`${this.apiUrl + this.endpoint}?userId=${userId}&bookId=${bookId}`)
+    return this.http.get<ReadOwnershipDto[]>(`${this.apiUrl + this.endpoint}?userId=${userId}&bookId=${bookId}`)
       .pipe(map(dto => dto.length > 0 ? dto[0] : null), catchError(error => {
         console.error('Error fetching ownership:', error);
         return throwError(() => error);
@@ -61,7 +61,7 @@ export class BookOwnershipService {
   }
 
   public getOwnedBooks(userId: number): Observable<Book[]> {
-    return this.http.get<ReadOwnership[]>(`${this.apiUrl + this.endpoint}?userId=${userId}&_expand=book`).pipe(
+    return this.http.get<ReadOwnershipDto[]>(`${this.apiUrl + this.endpoint}?userId=${userId}&_expand=book`).pipe(
       map(dto => dto.map(d => d.book))
     );
   }
@@ -80,6 +80,6 @@ export class BookOwnershipService {
   }
 
   private checkIfBookExists(userId: number, bookId: number): Observable<boolean> {
-    return this.http.get<ReadOwnership[]>(`${this.apiUrl + this.endpoint}?userId=${userId}&bookId=${bookId}`).pipe(map(dto => dto && dto.length > 0));
+    return this.http.get<ReadOwnershipDto[]>(`${this.apiUrl + this.endpoint}?userId=${userId}&bookId=${bookId}`).pipe(map(dto => dto && dto.length > 0));
   }
 }

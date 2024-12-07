@@ -1,27 +1,99 @@
-# Book
+# BookMania
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.11.
+Welcome to BookMania, a project developed as part of the SoftUni Angular course.
+This application is a mock book store and allows users to browse their book collections, view book details, and more.
 
-## Development server
+## Documentation
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+### Frameworks and Libraries
 
-## Code scaffolding
+- **Angular 18**: A platform for building mobile and desktop web applications.
+- **RxJS**: A library for reactive programming using Observables.
+- **Bootstrap 5**: A CSS framework for building responsive websites.
+- **FontAwesome**: A library of icons for use in web projects.
+- **jwt-decode**: A library for decoding JSON Web Tokens (JWT).
+- **JSON Server**: A full fake REST API for quick prototyping.
+  - **JSON Server Auth**: Layer on top of JSON Server, providing authentication capabilities.
+  - The "database" can be found in `db/db.json` file.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Functionality
 
-## Build
+- User Authentication: Login and registration features. `Admin` and `User` roles.
+- Book Management:
+  - as `User`:
+    - View and filter Books, based on different criteria
+  - as `Admin`:
+    - same as `User` + Create, Update, Delete Books
+- Book Details View: Detailed information about each book.
+- Book Search
+- _Book Categories_ Management:
+  - as `User`:
+    - View _Book Categories_
+  - as `Admin`:
+    - same as `User` + Create, Update, Delete _Book Categories_
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Architecture
 
-## Running unit tests
+- **Frontend**: Built with Angular, utilizing components, services, and RxJS for state management(via `BehaviorSubject`s).
+- **Backend**: Simulated with JSON Server, providing a RESTful API for managing books, categories and users.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Getting Started
 
-## Running end-to-end tests
+To get a local copy up and running, follow these simple steps:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+### Installation
 
-## Further help
+1. **Clone the repository**:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+    ```bash
+    git clone https://github.com/Ivan-Shaml/bookstore-ng.git
+    ```
+
+2. **Navigate to the project directory**:
+
+    ```bash
+    cd bookstore-ng
+    ```
+
+3. **Install the dependencies**:
+
+    ```bash
+    npm install
+    ```
+
+### Running the Application
+
+To start the application, you need to run both the backend and the Angular frontend.
+
+#### Start the Backend
+
+1. **Navigate to the project directory**:
+
+    ```bash
+    cd bookstore-ng
+    ```
+
+2. **Start the backend server**:
+
+    ```bash
+    npm run backend
+    ```
+
+   This will run the backend server using `json-server`. It will be available at `http://localhost:3000`
+
+#### Start the Frontend
+
+1. **Open a new terminal window and navigate to the project directory**:
+
+    ```bash
+    cd bookstore-ng
+    ```
+
+2. **Start the Angular development server**:
+
+    ```bash
+    npm run start
+    ```
+
+   This will run the Angular application. By default, it will be available at `http://localhost:4200`.
+
