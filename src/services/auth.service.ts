@@ -1,6 +1,6 @@
 import {Injectable, OnDestroy} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {BehaviorSubject, map, Observable, Subscription, tap} from 'rxjs';
+import {BehaviorSubject, catchError, map, Observable, of, Subscription, tap} from 'rxjs';
 import {environment} from '../environments/environment.development';
 import {User, UserAuthResponse, UserForLogin, UserForRegistration} from '../types/user';
 import {Router} from '@angular/router';
@@ -25,7 +25,6 @@ export class AuthService implements OnDestroy {
     this.userSubscription = this.user$.subscribe((user) => {
       this.user = user;
     });
-    this.checkToken();
   }
 
   login(body: UserForLogin): Observable<User> {
@@ -91,15 +90,15 @@ export class AuthService implements OnDestroy {
     return this.user?.id || null;
   }
 
-  checkToken(): void {
+  private parseToken(): Observable<void> {
     const token: string | null = localStorage.getItem(TOKEN_NAME);
     if (!token) {
-      return;
+      return of(void 0);
     }
 
     const decodedToken: JwtUserToken | null = this.decodeToken(token);
     if (!decodedToken) {
-      return;
+      return of(void 0);
     }
 
     const currentTime = Math.floor(Date.now() / 1000);
@@ -107,11 +106,18 @@ export class AuthService implements OnDestroy {
     const sub = decodedToken.sub;
 
     if (isValid && !this.isLogged && sub) {
-      this.http.get<User>(this.apiUrl + `/users/${sub}`).subscribe(user => {
-        this.user$$.next(user);
-      })
+      return this.http.get<User>(this.apiUrl + `/users/${sub}`).pipe(
+        tap(user => this.user$$.next(user)),
+        map(() => void 0),
+        catchError(() => {
+          localStorage.removeItem(TOKEN_NAME);
+          return of(void 0);
+        }));
+    } else {
+      localStorage.removeItem(TOKEN_NAME);
     }
 
+    return of(void 0);
   }
 
   private decodeToken(token: string): JwtUserToken | null {
@@ -120,5 +126,9 @@ export class AuthService implements OnDestroy {
     } catch (Error) {
       return null;
     }
+  }
+
+  init(): Observable<void> {
+    return this.parseToken();
   }
 }

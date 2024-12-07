@@ -3,10 +3,10 @@ import {inject} from '@angular/core';
 import {AuthService} from '../services/auth.service';
 
 export const AdminGuard: CanActivateFn = (route, state) => {
-  const userService = inject(AuthService);
+  const authService = inject(AuthService);
   const router = inject(Router);
 
-  if (userService.isAdmin) {
+  if (authService.isAdmin) {
     return true;
   }
   router.navigate(['/home']);

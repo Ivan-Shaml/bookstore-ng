@@ -11,6 +11,7 @@ import {BookFormComponent} from '../components/books/book-form/book-form.compone
 import {AdminGuard} from '../guards/admin.guard';
 import {BookDetailsComponent} from '../components/books/book-details/book-details.component';
 import {CategoryFormComponent} from '../components/category/category-form/category-form.component';
+import {AlreadyAuthorizedGuard} from '../guards/already-authorized.guard';
 
 export const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -42,8 +43,8 @@ export const routes: Routes = [
     ],
   },
 
-  {path: 'login', component: LoginComponent},
-  {path: 'register', component: RegisterComponent},
+  {path: 'login', component: LoginComponent, canActivate: [AlreadyAuthorizedGuard]},
+  {path: 'register', component: RegisterComponent, canActivate: [AlreadyAuthorizedGuard]},
   {path: 'profile', component: ProfilePageComponent, canActivate: [AuthGuard]},
 
 
