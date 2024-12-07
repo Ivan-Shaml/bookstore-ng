@@ -4,13 +4,15 @@ import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {AuthService} from "../../services/auth.service";
 import {BookOwnershipService} from '../../services/book-ownership.service';
 import {FormsModule} from '@angular/forms';
+import {CapitalizePipe} from '../../pipes/capitalize.pipe';
 
 @Component({
   selector: 'app-profile-page',
   standalone: true,
   imports: [
     FormsModule,
-    RouterLink
+    RouterLink,
+    CapitalizePipe
   ],
   templateUrl: './profile-page.component.html',
   styleUrl: './profile-page.component.css'
