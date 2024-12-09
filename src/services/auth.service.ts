@@ -29,7 +29,7 @@ export class AuthService implements OnDestroy {
 
   login(body: UserForLogin): Observable<User> {
     return this.http.post<UserAuthResponse>(this.apiUrl + this.loginEndpoint, body)
-      .pipe(tap((user) => this.user$$.next(user.user))).pipe(tap((user) => {
+      .pipe(tap((user) => {
           this.user$$.next(user.user);
           this.setToken(user.accessToken)
         }),

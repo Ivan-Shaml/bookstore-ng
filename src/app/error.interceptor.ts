@@ -1,6 +1,6 @@
 import {HttpInterceptorFn} from '@angular/common/http';
 import {inject} from '@angular/core';
-import {catchError} from 'rxjs';
+import {catchError, throwError} from 'rxjs';
 import {Router} from '@angular/router';
 
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
@@ -14,7 +14,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
       } else if (err.status === 404) {
         router.navigate(['/404']);
       }
-      return [err];
+      return throwError(() => err);
     })
   );
 };
