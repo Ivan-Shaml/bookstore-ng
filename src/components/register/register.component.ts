@@ -19,14 +19,14 @@ export class RegisterComponent {
   constructor(private readonly authService: AuthService, private readonly router: Router) {
   }
 
-  emailAlreadyExists: boolean = false;
+  emailAlreadyExists = false;
 
   register(form: NgForm): void {
     if (form.valid) {
       const {name, email, phone, password} = form.value;
-      this.authService.register({name, email, phone, password}).subscribe(response => {
+      this.authService.register({name, email, phone, password}).subscribe(() => {
         this.router.navigate(['/home']);
-      }, error => {
+      }, () => {
         this.emailAlreadyExists = true;
       });
     }

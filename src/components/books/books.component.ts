@@ -26,9 +26,9 @@ export class BooksComponent implements OnInit {
   private categorySubscription!: Subscription;
 
   filterForm: FormGroup;
-  gridTitle: string = 'Всички книги';
-  isBookDeleted: boolean = false;
-  isBookDeletionError: boolean = false;
+  gridTitle = 'Всички книги';
+  isBookDeleted = false;
+  isBookDeletionError = false;
 
 
   constructor(private bookService: BookService,
@@ -39,9 +39,6 @@ export class BooksComponent implements OnInit {
               private bookOwnershipService: BookOwnershipService,
               private authService: AuthService) {
     this.filterForm = this.fb.group({categoryId: [0]});
-  }
-
-  onSubmit(): void {
   }
 
   ngOnInit(): void {
@@ -63,7 +60,7 @@ export class BooksComponent implements OnInit {
       } else if (title) {
         this.bookService.getBooksByTitle(title, true).subscribe(books => {
           this.books = books;
-          this.gridTitle = `Резултати от търсена за '${title}'`;
+          this.gridTitle = `Резултати от търсене за '${title}'`;
           this.resetCategoryForm();
         });
       } else {
@@ -91,12 +88,12 @@ export class BooksComponent implements OnInit {
 
 
   onDelete(id: number): void {
-    this.bookService.deleteBook(id).subscribe(res => {
+    this.bookService.deleteBook(id).subscribe(() => {
         this.isBookDeleted = true;
         this.isBookDeletionError = false;
         this.ngOnInit();
       },
-      err => {
+      () => {
         this.isBookDeleted = false;
         this.isBookDeletionError = true;
       })
@@ -105,7 +102,7 @@ export class BooksComponent implements OnInit {
   onDownload($event: number): void {
     const userId: number = this.authService.userid as number;
 
-    this.bookOwnershipService.download({bookId: $event, userId}).subscribe(next => {
+    this.bookOwnershipService.download({bookId: $event, userId}).subscribe(() => {
         this.router.navigate(['/profile'], {queryParams: {success: true}, fragment: 'ownedProducts'});
       },
       error => {

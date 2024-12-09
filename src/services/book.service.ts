@@ -10,13 +10,13 @@ import {environment} from '../environments/environment.development';
 export class BookService {
 
   apiUrl: string = environment.apiUrl;
-  endpoint: string = '/books';
+  endpoint = '/books';
 
   constructor(private readonly http: HttpClient) {
   }
 
   getBooks(includeCateg?: boolean): Observable<Book[]> {
-    let params: string = '';
+    let params = '';
     if (includeCateg) {
       params = '?_expand=category';
     }
@@ -25,7 +25,7 @@ export class BookService {
   }
 
   getBooksByCategoryId(categoryId: number, includeCateg?: boolean): Observable<Book[]> {
-    let params: string = `?categoryId=${categoryId}`;
+    let params = `?categoryId=${categoryId}`;
 
     if (includeCateg) {
       params += '&_expand=category';
@@ -36,7 +36,7 @@ export class BookService {
 
   getMostRatedBooks(includeCateg?: boolean): Observable<Book[]> {
 
-    let params: string = '';
+    let params = '';
     if (includeCateg) {
       params = '&_expand=category';
     }
@@ -45,7 +45,7 @@ export class BookService {
   }
 
   getBookByTitle(title: string, includeCateg?: boolean): Observable<Book> {
-    let params: string = '';
+    let params = '';
     if (includeCateg) {
       params = '&_expand=category';
     }
@@ -54,7 +54,7 @@ export class BookService {
   }
 
   getMostRatedSingle(includeCateg?: boolean): Observable<Book> {
-    let params: string = '';
+    let params = '';
     if (includeCateg) {
       params = '&_expand=category';
     }
@@ -62,8 +62,8 @@ export class BookService {
     return this.http.get<Book[]>(this.apiUrl + this.endpoint + '?_sort=rating&_order=desc&_page=1&_limit=1' + params).pipe(map(books => books[0]));
   }
 
-  getBooksByTitle(title: any, includeCateg: boolean): Observable<Book[]> {
-    let params: string = `?title_like=${title}`;
+  getBooksByTitle(title: string, includeCateg: boolean): Observable<Book[]> {
+    let params = `?title_like=${title}`;
 
     if (includeCateg) {
       params += '&_expand=category';
@@ -85,7 +85,7 @@ export class BookService {
   }
 
   getBookById(id: number, includeCateg?: boolean): Observable<Book> {
-    let params: string = '';
+    let params = '';
     if (includeCateg) {
       params = '&_expand=category';
     }

@@ -15,7 +15,7 @@ import {CategoryService} from '../../../services/category.service';
 export class CategoryFormComponent implements OnInit {
   categoryForm: FormGroup;
   categoryId: number | null = null;
-  successfullyAdded: boolean = false;
+  successfullyAdded = false;
 
   constructor(
     private fb: FormBuilder,

@@ -10,13 +10,13 @@ import {environment} from '../environments/environment.development';
 export class CategoryService {
 
   apiUrl: string = environment.apiUrl;
-  endpoint: string = '/categories';
+  endpoint = '/categories';
 
   constructor(private readonly http: HttpClient) {
   }
 
   getCategories(includeBooks?: boolean): Observable<Category[]> {
-    let params: string = '';
+    let params = '';
     if (includeBooks) {
       params = '?_embed=books';
     }

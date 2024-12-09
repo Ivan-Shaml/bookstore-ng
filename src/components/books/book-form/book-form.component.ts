@@ -4,6 +4,7 @@ import {ActivatedRoute} from '@angular/router';
 import {BookService} from '../../../services/book.service';
 import {CategoryService} from '../../../services/category.service';
 import {Book} from '../../../types/book';
+import {Category} from '../../../types/category';
 
 @Component({
   selector: 'app-book-form',
@@ -16,9 +17,9 @@ import {Book} from '../../../types/book';
 })
 export class BookFormComponent implements OnInit {
   book: Book = {} as Book;
-  categories: any[] = [];
-  isEditMode: boolean = false;
-  successfulOperation: boolean = false;
+  categories: Category[] = [];
+  isEditMode = false;
+  successfulOperation = false;
 
   constructor(
     private readonly bookService: BookService,

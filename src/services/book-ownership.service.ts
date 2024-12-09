@@ -52,7 +52,7 @@ export class BookOwnershipService {
     }));
   }
 
-  private getOwnership(userId: number, bookId: number): Observable<any> {
+  private getOwnership(userId: number, bookId: number): Observable<ReadOwnershipDto | null> {
     return this.http.get<ReadOwnershipDto[]>(`${this.apiUrl + this.endpoint}?userId=${userId}&bookId=${bookId}`)
       .pipe(map(dto => dto.length > 0 ? dto[0] : null), catchError(error => {
         console.error('Error fetching ownership:', error);

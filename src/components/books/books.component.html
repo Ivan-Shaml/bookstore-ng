@@ -9,13 +9,13 @@
               <h4>Филтрирай по:</h4>
             </div>
 
-            <form [formGroup]="filterForm" (ngSubmit)="onSubmit()">
+            <form [formGroup]="filterForm">
               <div class="form-group">
                 <label for="category" style="color:#e75e8d;">Категория:</label>
                 <select id="category" formControlName="categoryId" class="form-control" style="color: #1f2122;">
                   @for (category of categories; track category.id) {
                     <option [value]="category.id">
-                      {{ category.id == null ? 'Всички' : category.name }}
+                      {{ !category.id ? 'Всички' : category.name }}
                     </option>
                   }
                 </select>

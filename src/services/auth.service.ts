@@ -119,7 +119,8 @@ export class AuthService implements OnDestroy {
   private decodeToken(token: string): JwtUserToken | null {
     try {
       return jwtDecode<JwtUserToken>(token);
-    } catch (Error) {
+    } catch (e) {
+      // ignore error
       return null;
     }
   }

@@ -1,1 +1,1 @@
-export const TOKEN_NAME: string = 'JWT';
+export const TOKEN_NAME = 'JWT';

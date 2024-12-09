@@ -20,8 +20,8 @@ import {AuthService} from '../../services/auth.service';
 export class CategoryComponent implements OnInit {
   topBook!: Book;
   categoriesList: Category[] = [];
-  deletedSuccessfully: boolean = false;
-  errorCategoryDeletion: boolean = false;
+  deletedSuccessfully = false;
+  errorCategoryDeletion = false;
 
   constructor(private readonly categoryService: CategoryService,
               private readonly bookService: BookService,
@@ -35,7 +35,7 @@ export class CategoryComponent implements OnInit {
 
 
   getImageUrl(category: Category) {
-    let books = category.books;
+    const books = category.books;
 
     if (books && books.length > 0) {
       return books[0].imageUrl;
@@ -55,7 +55,7 @@ export class CategoryComponent implements OnInit {
       this.deletedSuccessfully = true;
       this.errorCategoryDeletion = false;
       this.ngOnInit();
-    }, err => {
+    }, () => {
       this.deletedSuccessfully = false;
       this.errorCategoryDeletion = true;
     });

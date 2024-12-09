@@ -31,12 +31,11 @@
             ],
             "styles": [
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
               "src/assets/css/animate.css",
               "src/assets/css/custom_styles.css",
-              "src/assets/css/flex-slider.css",
               "src/assets/css/templatemo-cyborg-gaming.css",
               "src/assets/css/animate.css",
-              "https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css",
               "src/styles.css"
             ],
             "scripts": [
@@ -105,8 +104,22 @@
             ],
             "scripts": []
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
+  },
+  "cli": {
+    "schematicCollections": [
+      "angular-eslint"
+    ]
   }
 }

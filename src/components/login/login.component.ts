@@ -20,14 +20,14 @@ export class LoginComponent {
   constructor(private authService: AuthService, private router: Router) {
   }
 
-  loginFailed: boolean = false;
+  loginFailed = false;
 
   login(form: NgForm): void {
     if (form.valid) {
       const {email, password} = form.value;
-      this.authService.login({email, password}).subscribe(response => {
+      this.authService.login({email, password}).subscribe(() => {
         this.router.navigate(['home']);
-      }, error => {
+      }, () => {
         this.loginFailed = true;
       });
     }

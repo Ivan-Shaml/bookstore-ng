@@ -19,12 +19,12 @@ import {CapitalizePipe} from '../../pipes/capitalize.pipe';
 })
 export class ProfilePageComponent implements OnInit {
   private ownedBooks: Book[] = [];
-  isAlreadyOwned: boolean = false;
-  isSuccess: boolean = false;
-  isDeletedOwnership: boolean = false;
-  searchQuery: string = '';
+  isAlreadyOwned = false;
+  isSuccess = false;
+  isDeletedOwnership = false;
+  searchQuery = '';
   filteredBooks: Book[] = [];
-  ownedBooksCount: number = 0;
+  ownedBooksCount = 0;
 
 
   constructor(private readonly bookOwnership: BookOwnershipService,

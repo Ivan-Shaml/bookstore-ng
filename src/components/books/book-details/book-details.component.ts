@@ -41,7 +41,7 @@ export class BookDetailsComponent implements OnInit {
 
     const userId = this.authService.userid as number;
     const bookId = this.book.id;
-    this.bookOwnershipService.deleteOwnership(bookId, userId).subscribe(next => {
+    this.bookOwnershipService.deleteOwnership(bookId, userId).subscribe(() => {
       this.router.navigate(['/profile'], {queryParams: {deletedOwnership: true}, fragment: 'ownedProducts'});
     });
   }

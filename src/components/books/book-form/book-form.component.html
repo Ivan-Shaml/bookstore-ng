@@ -20,7 +20,7 @@
               <label class="form-label" style="color: #e75e8d;" for="title">Заглавие</label>
               <input class="form-control" id="title" name="title" placeholder="Въведете заглавие"
                      [(ngModel)]="book.title" required>
-              @if (form.submitted && !form.controls['title']?.valid) {
+              @if (form.submitted && !form.controls['title'].valid) {
                 <div class="text-danger">
                   Заглавието е задължително.
                 </div>
@@ -31,7 +31,7 @@
               <label class="form-label" style="color: #e75e8d;" for="author">Автор</label>
               <input class="form-control" id="author" name="author" placeholder="Въведете автор"
                      [(ngModel)]="book.author" required>
-              @if (form.submitted && !form.controls['author']?.valid) {
+              @if (form.submitted && !form.controls['author'].valid) {
                 <div class="text-danger">
                   Авторът е задължителен.
                 </div>
@@ -42,7 +42,7 @@
               <label class="form-label" style="color: #e75e8d;" for="imageUrl">Линк на снимка</label>
               <input class="form-control" id="imageUrl" name="imageUrl" placeholder="Въведете Линк на снимката"
                      [(ngModel)]="book.imageUrl" required>
-              @if (form.submitted && !form.controls['imageUrl']?.valid) {
+              @if (form.submitted && !form.controls['imageUrl'].valid) {
                 <div class="text-danger">
                   Линкът на снимката е задължителен.
                 </div>
@@ -53,7 +53,7 @@
               <label class="form-label" style="color: #e75e8d;" for="pages">Брой страници</label>
               <input class="form-control" id="pages" name="numberOfPages" placeholder="Въведете брой страници"
                      [(ngModel)]="book.numberOfPages" type="number" required>
-              @if (form.submitted && !form.controls['numberOfPages']?.valid) {
+              @if (form.submitted && !form.controls['numberOfPages'].valid) {
                 <div class="text-danger">
                   Брой страници е задължителен.
                 </div>
@@ -65,7 +65,7 @@
               <input class="form-control" id="yearOfPublishing" name="yearOfPublishing"
                      placeholder="Въведете година на издаване" [(ngModel)]="book.yearOfPublishing" type="number"
                      required>
-              @if (form.submitted && !form.controls['yearOfPublishing']?.valid) {
+              @if (form.submitted && !form.controls['yearOfPublishing'].valid) {
                 <div class="text-danger">
                   Годината на издаване е задължителна.
                 </div>
@@ -76,7 +76,7 @@
               <label class="form-label" style="color: #e75e8d;" for="description">Описание</label>
               <textarea class="form-control" id="description" name="description" placeholder="Описание"
                         [(ngModel)]="book.description" cols="6" rows="12" required></textarea>
-              @if (form.submitted && !form.controls['description']?.valid) {
+              @if (form.submitted && !form.controls['description'].valid) {
                 <div class="text-danger">
                   Описанието е задължително.
                 </div>
@@ -90,7 +90,7 @@
                   <option [value]="category.id">{{ category.name }}</option>
                 }
               </select>
-              @if (form.submitted && !form.controls['categoryId']?.valid) {
+              @if (form.submitted && !form.controls['categoryId'].valid) {
                 <div class="text-danger">
                   Категорията е задължителна.
                 </div>
