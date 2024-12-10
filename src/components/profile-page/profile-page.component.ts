@@ -59,13 +59,6 @@ export class ProfilePageComponent implements OnInit {
     this.authService.logOut();
   }
 
-  goToDetails(id: number, event: Event): void {
-    event.preventDefault();
-    event.stopPropagation();
-
-    this.router.navigate(['/books', id, 'details']);
-  }
-
   getRatingsCount(): number {
     return this.ownedBooks.filter(book => book.rating > 0)?.length || 0;
   }

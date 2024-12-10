@@ -37,8 +37,7 @@ export const routes: Routes = [
       },
       {
         path: ':bookId/details',
-        component: BookDetailsComponent,
-        canActivate: [AuthGuard],
+        component: BookDetailsComponent
       },
     ],
   },

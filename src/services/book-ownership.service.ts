@@ -33,7 +33,7 @@ export class BookOwnershipService {
     );
   }
 
-  private checkIfAlreadyOwned(dto: CreateOwnershipDto): Observable<boolean> {
+  public checkIfAlreadyOwned(dto: CreateOwnershipDto): Observable<boolean> {
     return this.http.get<ReadOwnershipDto[]>(`${this.apiUrl + this.endpoint}?userId=${dto.userId}&bookId=${dto.bookId}`).pipe(map(
       response => response && response.length > 0
     ));

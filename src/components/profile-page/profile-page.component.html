@@ -81,14 +81,13 @@
                   <div class="col-lg-3 col-sm-6">
                     <div class="item">
                       <div class="thumb">
-                        <img [src]="book.imageUrl" alt="">
-                        <h4>{{ book.title }}</h4>
+                        <a [routerLink]="['/books', book.id, 'details']"><img [src]="book.imageUrl"
+                                                                              alt="{{book.title}}"></a>
+                        <h4><a [routerLink]="['/books', book.id, 'details']">{{ book.title }}</a></h4>
                         <br><span>{{ book.category?.name }}</span>
                         <span>{{ book.yearOfPublishing }}</span>
                         <ul class="d-inline-flex gap-sm-1 mt-0">
-                          <li><i>{{ book.rating }}</i> <i class="fa fa-star"></i></li>
-                          <li><a (click)="goToDetails(book.id, $event)" class="info-button" [href]="null">
-                            <i class="fa fa-info-circle"></i> Детайли</a></li>
+                          <li><i>{{ book.rating }} </i> <i class="fa fa-star"></i></li>
                         </ul>
                       </div>
                     </div>

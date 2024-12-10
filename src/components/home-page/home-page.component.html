@@ -17,13 +17,14 @@
                   <div class="col-lg-3 col-sm-6">
                     <div class="item">
                       <div>
-                        <img src="{{topProd.imageUrl}}" alt="">
+                        <a [routerLink]="['/books', topProd.id, 'details']"><img src="{{topProd.imageUrl}}"
+                                                                                 alt="{{topProd.title}}"></a>
                       </div>
-                      <h4>{{ topProd.title }}</h4>
+                      <h4><a [routerLink]="['/books', topProd.id, 'details']">{{ topProd.title }}</a></h4>
                       <br><span>{{ topProd.category?.name }}</span>
                       <div class="overlay">
                         <ul class="d-inline-flex gap-sm-1 mt-0">
-                          <li><i>{{ topProd.rating }}</i> <i class="fa fa-star"></i></li>
+                          <li><i>{{ topProd.rating }} </i> <i class="fa fa-star"></i></li>
                         </ul>
                       </div>
                     </div>

@@ -26,13 +26,13 @@
                     class="fa fa-edit"></i>
                     Редактирай</a>
                 }
-                <img [src]="book.imageUrl" alt="">
-                <h4>{{ book.title }}</h4>
+                <a [routerLink]="['/books', book.id, 'details']"><img [src]="book.imageUrl" alt="{{book.title}}"></a>
+                <h4><a [routerLink]="['/books', book.id, 'details']">{{ book.title }}</a></h4>
                 <br><span>{{ book.category?.name }}</span>
                 <span>{{ book.yearOfPublishing }}</span>
                 <ul class="d-inline-flex gap-sm-1 mt-0">
                   <li>
-                    <i>{{ book.rating || 0 }}</i> <i class="fa fa-star"></i>
+                    <i>{{ book.rating || 0 }} </i> <i class="fa fa-star"></i>
                   </li>
                   @if (isLoggedIn()) {
                     <li><a class="download-button" (click)="downloadBook($event, book.id)" [href]="null">
