@@ -29,7 +29,7 @@ export class BookDetailsComponent implements OnInit {
     const id = this.activatedRoute.snapshot.params['bookId'];
     if (id) {
       const bookId = +id;
-      this.bookService.getBookById(bookId).subscribe(book => {
+      this.bookService.getBookById(bookId, true).subscribe(book => {
         this.book = book;
       });
 

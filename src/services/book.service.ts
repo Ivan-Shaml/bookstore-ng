@@ -87,7 +87,7 @@ export class BookService {
   getBookById(id: number, includeCateg?: boolean): Observable<Book> {
     let params = '';
     if (includeCateg) {
-      params = '&_expand=category';
+      params = '?_expand=category';
     }
 
     return this.http.get<Book>(this.apiUrl + this.endpoint + `/${id}${params}`);
